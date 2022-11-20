@@ -1,0 +1,12 @@
+错误: 缺少 JavaFX 运行时组件, 需要使用该组件来运行此应用程序
+因为java8后jdk加入模块
+javafx从java8之后开始了模块开发，所以有些模块不是默认有的，要在启动时加入模块配置参数
+
+1. javafx需要继承,import javafx.application.Application;
+2. 需要实现方法start
+3. 创建main方法 调用launch
+4. 需要stage调用show方法
+
+JavaFx：舞台{场景{布局{
+
+舞台中切换界面，类似web界面跳转
