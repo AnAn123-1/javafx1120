@@ -8,14 +8,19 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+//import java.awt.event.KeyEvent;
 
-import java.awt.event.KeyEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 public class JavaFx04Stage extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        /*stage.setWidth(300);
-        stage.setHeight(300);*///设置界面长宽
+        //stage.setWidth(300);
+        //stage.setHeight(300);//设置界面长宽
 
         //stage.setTitle("目");
         //stage.getIcons().add(new Image("目.jpg"));//设置左上角标题栏图标。记得把图片拖到src文件夹里
@@ -43,19 +48,13 @@ public class JavaFx04Stage extends Application {
         stage.setScene(scene);//场景设置添加到舞台中
         //stage.initStyle(StageStyle.UNDECORATED);//使框框消失
 
-        //全屏模式
-        //stage.setFullScreen(true);
+        //stage.setFullScreen(true);//全屏模式
 
         //舞台事件
-        stage.setOnCloseRequest(e->{
-            System.out.println("系统被关闭了。。。");
-        });//点叉关闭窗口后打印上述内容
+        stage.setOnCloseRequest(e-> System.out.println("系统被关闭了。。。"));//点叉关闭窗口后打印上述内容
 
-        //舞台键盘事件：
-        //A左D右W上S下
-        stage.addEventFilter(KeyEvent.KEY_TYPED, e->{
-            System.out.println(e.getC());
-        });
+        //舞台键盘事件：退出
+        stage.addEventFilter(KeyEvent.KEY_TYPED, e-> System.out.println(e.getCharacter()));
 
         stage.show();
     }
