@@ -93,26 +93,29 @@ public class Chessboard extends JComponent {
         for (int i = 0; i < squareComponents.length; i++) {
             for (int j = 0; j < squareComponents[i].length; j++) {
                 ChessColor color = random.nextInt(2) == 0 ? ChessColor.RED : ChessColor.BLACK;
+                int y = 0;
+                int p;
+                for(p = 0;p < 7;p ++){
+                    y += a[1][p];
+                }
+                if(y == 0) color = ChessColor.BLACK;
+                y = 0;
+                for(p = 0;p < 7;p ++){
+                    y += a[2][p];
+                }
+                if(y == 0) color = ChessColor.RED;
                 SquareComponent squareComponent;
                     int x = random.nextInt(7);
                     if(color == ChessColor.RED) {
-                        while (a[1][x] == 0 && x > 0) {
-                            x--;
-                        }
-
-                        while (a[1][x] == 0 && x < 6) {
-                            x++;
+                        while (a[1][x] == 0) {
+                            x = random.nextInt(7);
                         }
                     }
-                if(color == ChessColor.BLACK) {
-                    while (a[2][x] == 0 && x > 0) {
-                        x--;
+                    if(color == ChessColor.BLACK) {
+                        while (a[2][x] == 0) {
+                            x = random.nextInt(7);
+                        }
                     }
-
-                    while (a[2][x] == 0 && x < 6) {
-                        x++;
-                    }
-                }
                     switch (x) {
                         case 0:
                             if (color == ChessColor.RED) {
