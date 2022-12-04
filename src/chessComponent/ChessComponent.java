@@ -45,4 +45,8 @@ public class ChessComponent extends SquareComponent{
             }
         }
     }
+
+    public int getScore() {
+        return score;
+    }
 }

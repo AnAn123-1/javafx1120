@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.javafx.binding.StringFormatter;
 import controller.GameController;
 
 import javax.swing.*;
@@ -17,9 +18,15 @@ public class ChessGameFrame extends JFrame {
     public final int CHESSBOARD_SIZE;
     private GameController gameController;
     private static JLabel statusLabel;
+    private static JLabel blackLabel;
+    private static JLabel redLabel;
+
+    private static Player blackplayer;
+
+    private static Player redplayer;
 
     public ChessGameFrame(int width, int height) {
-        setTitle("2022 CS109 Project Demo"); //设置标题
+        setTitle("Dark Chess!"); //设置标题
         this.WIDTH = width;
         this.HEIGHT = height;
         this.CHESSBOARD_SIZE = HEIGHT * 4 / 5;
@@ -56,6 +63,21 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(statusLabel);
+
+        blackplayer = new Player();
+        redplayer = new Player();
+        blackplayer.setScore(0);
+        redplayer.setScore(0);
+        blackLabel = new JLabel(String.format("BLACK`S SCORE : %d",blackplayer.getScore()));
+        blackLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 370);
+        blackLabel.setSize(250,60);
+        blackLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        redLabel = new JLabel(String.format("RED`S SCORE : %d",redplayer.getScore()));
+        redLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 420);
+        redLabel.setSize(250,60);
+        redLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(blackLabel);
+        add(redLabel);
     }
 
     public static JLabel getStatusLabel() {
@@ -93,4 +115,19 @@ public class ChessGameFrame extends JFrame {
 
     }
 
+    public static JLabel getBlackLabel() {
+        return blackLabel;
+    }
+
+    public static JLabel getRedLabel() {
+        return redLabel;
+    }
+
+    public static Player getBlackplayer() {
+        return blackplayer;
+    }
+
+    public static Player getRedplayer() {
+        return redplayer;
+    }
 }

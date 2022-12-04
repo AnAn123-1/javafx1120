@@ -31,6 +31,8 @@ public abstract class SquareComponent extends JComponent {
     protected boolean isReversal;
     private boolean selected;
 
+    protected int score;
+
     /**
      * handle click event
      */
@@ -128,5 +130,9 @@ public abstract class SquareComponent extends JComponent {
         System.out.printf("repaint chess [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
         g.setColor(squareColor);
         g.fillRect(1, 1, this.getWidth() - 2, this.getHeight() - 2);
+    }
+
+    public int getScore() {
+        return score;
     }
 }

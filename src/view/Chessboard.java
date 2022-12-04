@@ -71,6 +71,14 @@ public class Chessboard extends JComponent {
     public void swapChessComponents(SquareComponent chess1, SquareComponent chess2) {
         // Note that chess1 has higher priority, 'destroys' chess2 if exists.
         if (!(chess2 instanceof EmptySlotComponent)) {
+            if(chess2.getChessColor() == ChessColor.RED) {
+                ChessGameFrame.getBlackplayer().setScore(ChessGameFrame.getBlackplayer().getScore() + chess2.getScore());
+                ChessGameFrame.getBlackLabel().setText(String.format("BLACK`S SCORE: %d", ChessGameFrame.getBlackplayer().getScore()));
+            }
+            else{
+                ChessGameFrame.getRedplayer().setScore(ChessGameFrame.getBlackplayer().getScore() + chess2.getScore());
+                ChessGameFrame.getRedLabel().setText(String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore()));
+            }
             remove(chess2);
             add(chess2 = new EmptySlotComponent(chess2.getChessboardPoint(), chess2.getLocation(), clickController, CHESS_SIZE));
         }
