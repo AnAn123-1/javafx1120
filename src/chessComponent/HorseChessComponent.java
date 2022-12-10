@@ -14,11 +14,11 @@ public class HorseChessComponent extends ChessComponent{
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 32;
             name = "ma";
-            img = new ImageIcon("C:\\Users\\Lenovo\\Desktop\\darkchess\\redhorse.png");
+            img = new ImageIcon("redhorse.png");
         } else {
             chessnumber = 3;
             name = "ma";
-            img = new ImageIcon("C:\\Users\\Lenovo\\Desktop\\darkchess\\blackhorse.png");
+            img = new ImageIcon("blackhorse.png");
         }
     }
 }

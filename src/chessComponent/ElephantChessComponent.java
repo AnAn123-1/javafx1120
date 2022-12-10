@@ -14,11 +14,11 @@ public class ElephantChessComponent extends ChessComponent{
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 6;
             name = "xiang";
-            img = new ImageIcon("C:\\Users\\Lenovo\\Desktop\\darkchess\\redelephant.png");
+            img = new ImageIcon("redelephant.png");
         } else {
             chessnumber = 7;
             name = "xiang";
-            img = new ImageIcon("C:\\Users\\Lenovo\\Desktop\\darkchess\\blackelephant.png");
+            img = new ImageIcon("blackelephant.png");
         }
     }
 }
