@@ -54,7 +54,7 @@ public class Data extends JFrame{
         JButton button = new JButton("音乐1");
         button.addActionListener((e) -> {
             new Thread(()->{while(true) {
-                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\群青.wav"));} //while中的true可换成参数来控制音乐的停止播放
+                Data.playMusic(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\群青.wav"));} //while中的true可换成参数来控制音乐的停止播放
             }).start();
         });
         button.setLocation(342, 192);
