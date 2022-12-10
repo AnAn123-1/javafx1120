@@ -18,11 +18,11 @@ public class ChariotChessComponent extends ChessComponent {
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 4;
             name = "ju";
-            img = new ImageIcon("redchariot.png");
+            img = new ImageIcon("src/darkchess/redchariot.png");
         } else {
             chessnumber = 5;
             name = "che";
-            img = new ImageIcon("blackchariot.png");
+            img = new ImageIcon("src/darkchess/blackchariot.png");
         }
     }
 

@@ -15,11 +15,11 @@ public class GeneralChessComponent extends ChessComponent{
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 10;
             name = "shuai";
-            img = new ImageIcon("redgeneral.png");
+            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\redgeneral.png");
         } else {
             chessnumber = 11;
             name = "jiang";
-            img = new ImageIcon("C:blackgeneral.png");
+            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\blackgeneral.png");
         }
     }
 }

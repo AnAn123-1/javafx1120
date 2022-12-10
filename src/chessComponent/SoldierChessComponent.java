@@ -15,11 +15,11 @@ public class SoldierChessComponent extends ChessComponent {
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 0;
             name = "bing";
-            img = new ImageIcon("redsodier.png");
+            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\redsodier.png");
         } else {
             chessnumber = 1;
             name = "zu";
-            img = new ImageIcon("blacksodier.png");
+            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\blacksodier.png");
         }
     }
 

@@ -14,11 +14,11 @@ public class GuardChesscomponent extends ChessComponent{
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 8;
             name = "shi";
-            img = new ImageIcon("redguard.png");
+            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\redguard.png");
         } else {
             chessnumber = 9;
             name = "shi";
-            img = new ImageIcon("blackguard.png");
+            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\blackguard.png");
         }
     }
 }
