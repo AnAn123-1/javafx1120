@@ -14,7 +14,7 @@ public class ChessComponent extends SquareComponent{
     protected String name;// 棋子名字：例如 兵，卒，士等
     protected ImageIcon img;
 
-    protected int chessnumber;
+
 
     protected int score;
 

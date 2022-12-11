@@ -2,6 +2,7 @@ package view;
 
 import com.sun.javafx.binding.StringFormatter;
 import controller.GameController;
+import model.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,8 @@ public class ChessGameFrame extends JFrame {
 
     private static Player redplayer;
 
+    private Chessboard chessboard;
+
     public ChessGameFrame(int width, int height) {
         setTitle("Dark Chess!"); //设置标题
         this.WIDTH = width;
@@ -38,7 +41,7 @@ public class ChessGameFrame extends JFrame {
         setLayout(null);
 
         addChessboard();
-        addLabel();
+          addLabel();
         addHelloButton();
         addLoadButton();
     }
@@ -48,7 +51,7 @@ public class ChessGameFrame extends JFrame {
      * 在游戏窗体中添加棋盘
      */
     private void addChessboard() {
-        Chessboard chessboard = new Chessboard(CHESSBOARD_SIZE / 2, CHESSBOARD_SIZE);
+        chessboard = new Chessboard(CHESSBOARD_SIZE / 2, CHESSBOARD_SIZE);
         gameController = new GameController(chessboard);
         chessboard.setLocation(HEIGHT / 10, HEIGHT / 10);
         add(chessboard);
@@ -89,8 +92,16 @@ public class ChessGameFrame extends JFrame {
      */
 
     private void addHelloButton() {
-        JButton button = new JButton("Show Hello Here");
-        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
+        JButton button = new JButton("new game");
+        button.addActionListener(e ->  {
+            chessboard.Restart();
+            blackplayer.setScore(0);
+            redplayer.setScore(0);
+            redLabel.setText((String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore())));
+            blackLabel.setText((String.format("BLACK`S SCORE: %d", ChessGameFrame.getBlackplayer().getScore())));
+            chessboard.setCurrentColor(ChessColor.BLACK);
+            statusLabel.setText("BLACK's TURN");
+        });
         button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 120);
         button.setSize(180, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
@@ -130,4 +141,5 @@ public class ChessGameFrame extends JFrame {
     public static Player getRedplayer() {
         return redplayer;
     }
+
 }

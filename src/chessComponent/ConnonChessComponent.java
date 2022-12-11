@@ -14,12 +14,12 @@ public class ConnonChessComponent extends ChessComponent{
         if (this.getChessColor() == ChessColor.RED) {
             chessnumber = 12;
             name = "pao";
-            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\redcannon.png");
+            img = new ImageIcon("C:\\Users\\Lenovo\\Desktop\\darkchess\\redcannon.png");
         } else {
 
-            chessnumber = 13;
+            chessnumber = 12;
             name = "pao";
-            img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\blackcannon.png");
+            img = new ImageIcon("C:\\Users\\Lenovo\\Desktop\\darkchess\\blackcannon.png");
         }
     }
 }

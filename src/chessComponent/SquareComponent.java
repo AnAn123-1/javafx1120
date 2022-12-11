@@ -33,6 +33,12 @@ public abstract class SquareComponent extends JComponent {
 
     protected int score;
 
+    public int getChessnumber() {
+        return chessnumber;
+    }
+
+    protected int chessnumber;
+
     /**
      * handle click event
      */
@@ -42,6 +48,7 @@ public abstract class SquareComponent extends JComponent {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
         setLocation(location);
         setSize(size, size);
+        //setSize(60, 60);
         this.chessboardPoint = chessboardPoint;
         this.chessColor = chessColor;
         this.selected = false;
@@ -119,7 +126,53 @@ public abstract class SquareComponent extends JComponent {
     //todo: Override this method for Cannon
     public boolean canMoveTo(SquareComponent[][] chessboard, ChessboardPoint destination) {
         SquareComponent destinationChess = chessboard[destination.getX()][destination.getY()];
-        return destinationChess.isReversal|| destinationChess instanceof EmptySlotComponent;
+        if(this.getChessnumber() < 12){
+            if(this.getChessnumber() >= 2) {
+                if ((destination.getY() == this.chessboardPoint.getY() && (destination.getX() - this.chessboardPoint.getX() == 1 || this.chessboardPoint.getX() - destination.getX() == 1)) ||
+                        (destination.getX() == this.chessboardPoint.getX() && (destination.getY() - this.chessboardPoint.getY() == 1 || this.chessboardPoint.getY() - destination.getY() == 1))) {
+                    if (destinationChess.isReversal()) {
+                        if (destinationChess.getChessnumber() <= this.getChessnumber() && destinationChess.getChessnumber() < 12)
+                            return true;
+                        else return destinationChess.getChessnumber() >= 12;
+                    } else return destinationChess instanceof EmptySlotComponent;
+                } else return false;
+            }
+            else return destinationChess.getChessnumber() == 10||destinationChess.getChessnumber() == 0 ;
+        }
+        else{
+            if(!(destinationChess instanceof EmptySlotComponent)) {
+                int i;
+                int k = 0;
+                if (destination.getX() == this.chessboardPoint.getX() && destination.getY() != this.chessboardPoint.getY()) {
+                    if (destination.getY() > this.chessboardPoint.getY()) {
+                        for (i = 0; i < destination.getY() - this.chessboardPoint.getY(); i++) {
+                            if (!(chessboard[this.chessboardPoint.getX()][this.chessboardPoint.getY() + i] instanceof EmptySlotComponent))
+                                k++;
+                        }
+                    } else {
+                        for (i = 0; i < this.chessboardPoint.getY() - destination.getY(); i++) {
+                            if (!(chessboard[this.chessboardPoint.getX()][this.chessboardPoint.getY() - i] instanceof EmptySlotComponent))
+                                k++;
+                        }
+                    }
+                    return k == 2;
+                } else if (destination.getY() == this.chessboardPoint.getY() && destination.getX() != this.chessboardPoint.getX()) {
+                    if (destination.getX() > this.chessboardPoint.getX()) {
+                        for (i = 0; i < destination.getX() - this.chessboardPoint.getX(); i++) {
+                            if (!(chessboard[this.chessboardPoint.getX() + i][this.chessboardPoint.getY()] instanceof EmptySlotComponent))
+                                k++;
+                        }
+                    } else {
+                        for (i = 0; i < this.chessboardPoint.getX() - destination.getX(); i++) {
+                            if (!(chessboard[this.chessboardPoint.getX() - i][this.chessboardPoint.getY()] instanceof EmptySlotComponent))
+                                k++;
+                        }
+                    }
+                    return k == 2;
+                } else return false;
+            }
+            else return false;
+        }
         //todo: complete this method
     }
 
@@ -127,7 +180,7 @@ public abstract class SquareComponent extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponents(g);
-        System.out.printf("repaint chess [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
+        //System.out.printf("repaint chess [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
         g.setColor(squareColor);
         g.fillRect(1, 1, this.getWidth() - 2, this.getHeight() - 2);
     }

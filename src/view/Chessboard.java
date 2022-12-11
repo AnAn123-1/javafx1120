@@ -76,7 +76,7 @@ public class Chessboard extends JComponent {
                 ChessGameFrame.getBlackLabel().setText(String.format("BLACK`S SCORE: %d", ChessGameFrame.getBlackplayer().getScore()));
             }
             else{
-                ChessGameFrame.getRedplayer().setScore(ChessGameFrame.getBlackplayer().getScore() + chess2.getScore());
+                ChessGameFrame.getRedplayer().setScore(ChessGameFrame.getRedplayer().getScore() + chess2.getScore());
                 ChessGameFrame.getRedLabel().setText(String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore()));
             }
             remove(chess2);
@@ -91,11 +91,22 @@ public class Chessboard extends JComponent {
         //只重新绘制chess1 chess2，其他不变
         chess1.repaint();
         chess2.repaint();
+        if(ChessGameFrame.getRedplayer().getScore() >= 60 || ChessGameFrame.getBlackplayer().getScore() >= 60 ){
+
+            Restart();
+            ChessGameFrame.getRedplayer().setScore(0);
+            ChessGameFrame.getBlackplayer().setScore(0);
+            ChessGameFrame.getRedLabel().setText((String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore())));
+            ChessGameFrame.getBlackLabel().setText((String.format("BLACK`S SCORE: %d", ChessGameFrame.getBlackplayer().getScore())));
+            this.setCurrentColor(ChessColor.BLACK);
+            ChessGameFrame.getStatusLabel().setText("BLACK's TURN");
+            Dialog dial = new Dialog(ChessGameFrame.getRedplayer().getScore()>ChessGameFrame.getBlackplayer().getScore()?"RED":"BLACK");
+        }
     }
 
 
     //FIXME:   Initialize chessboard for testing only.
-    private void initAllChessOnBoard() {
+    public void initAllChessOnBoard() {
         Random random = new Random();
         int[][] a = new int[][]{{0, 1, 2, 3, 4, 5, 6}, {5, 2, 2, 2, 2, 1, 2},{5, 2, 2, 2, 2, 1, 2}};
         for (int i = 0; i < squareComponents.length; i++) {
@@ -124,71 +135,64 @@ public class Chessboard extends JComponent {
                             x = random.nextInt(7);
                         }
                     }
-                    switch (x) {
-                        case 0:
-                            if (color == ChessColor.RED) {
-                                a[1][x]--;
-                                squareComponent = new SoldierChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new SoldierChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
-                        case 1:
-                            if (color == ChessColor.RED) {
-                                a[1][x]--;
-                                squareComponent = new HorseChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new HorseChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
-                        case 2:
-                            if (color == ChessColor.RED) {
-                                a[1][x]--;
-                                squareComponent = new ChariotChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new ChariotChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
-                        case 3:
-                            if (color == ChessColor.RED) {
-                                a[1][x]--;
-                                squareComponent = new ElephantChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new ElephantChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
-                        case 4:
-                            if (color == ChessColor.RED) {
-                                a[1][x]--;
-                                squareComponent = new GuardChesscomponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new GuardChesscomponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
-                        case 5:
-                            if (color == ChessColor.RED ) {
-                                a[1][x]--;
-                                squareComponent = new GeneralChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new GeneralChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
-                        default:
-                            if (color == ChessColor.RED) {
-                                a[1][x]--;
-                                squareComponent = new ConnonChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            } else {
-                                a[2][x]--;
-                                squareComponent = new ConnonChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                            }
-                            break;
+                switch (x) {
+                    case 0 -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new SoldierChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
                     }
+                    case 1 -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new HorseChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                    case 2 -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new ChariotChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                    case 3 -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new ElephantChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                    case 4 -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new GuardChesscomponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                    case 5 -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new GeneralChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                    default -> {
+                        if (color == ChessColor.RED) {
+                            a[1][x]--;
+                        } else {
+                            a[2][x]--;
+                        }
+                        squareComponent = new ConnonChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                }
                 squareComponent.setVisible(true);
                 putChessOnBoard(squareComponent);
             }
@@ -223,5 +227,15 @@ public class Chessboard extends JComponent {
      */
     public void loadGame(List<String> chessData) {
         chessData.forEach(System.out::println);
+    }
+
+    public void Restart(){
+        for (int i = 0; i < squareComponents.length; i++) {
+            for (int j = 0; j < squareComponents[i].length; j++) {
+                this.squareComponents[i][j].setVisible(false);
+                remove(squareComponents[i][j]);
+            }
+        }
+        initAllChessOnBoard();
     }
 }

@@ -21,6 +21,7 @@ public class ClickController {
             if (handleFirst(squareComponent)) {
                 squareComponent.setSelected(true);
                 first = squareComponent;
+                System.out.println("here");
                 first.repaint();
             }
         } else {
@@ -29,7 +30,8 @@ public class ClickController {
                 SquareComponent recordFirst = first;
                 first = null;
                 recordFirst.repaint();
-            } else if (handleSecond(squareComponent)) {
+            }
+            else if (handleSecond(squareComponent)) {
                 //repaint in swap chess method.
                 chessboard.swapChessComponents(first, squareComponent);
                 chessboard.clickController.swapPlayer();
@@ -47,7 +49,7 @@ public class ClickController {
      */
 
     private boolean handleFirst(SquareComponent squareComponent) {
-        if (!squareComponent.isReversal()) {
+        if (!squareComponent.isReversal()&&!(squareComponent instanceof EmptySlotComponent)) {
             squareComponent.setReversal(true);
             System.out.printf("onClick to reverse a chess [%d,%d]\n", squareComponent.getChessboardPoint().getX(), squareComponent.getChessboardPoint().getY());
             squareComponent.repaint();
@@ -63,7 +65,7 @@ public class ClickController {
      */
 
     private boolean handleSecond(SquareComponent squareComponent) {
-
+        if(first.getChessnumber()<12) {
         //没翻开或空棋子，进入if
         if (!squareComponent.isReversal()) {
             //没翻开且非空棋子不能走
@@ -71,8 +73,17 @@ public class ClickController {
                 return false;
             }
         }
-        return squareComponent.getChessColor() != chessboard.getCurrentColor() &&
-                first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+
+            return squareComponent.getChessColor() != chessboard.getCurrentColor() &&
+                    first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+        }
+        else {
+            if(!squareComponent.isReversal()) {
+                return first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+            }
+            else return squareComponent.getChessColor() != chessboard.getCurrentColor() &&
+                    first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+        }
     }
 
     public void swapPlayer() {
