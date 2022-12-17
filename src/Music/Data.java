@@ -7,6 +7,7 @@ import java.io.File;
 
 public class Data extends JFrame{
 
+
     static void playMusic(File file) {// 背景音乐播放
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(file);    //绝对路径

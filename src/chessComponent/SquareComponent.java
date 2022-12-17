@@ -29,7 +29,28 @@ public abstract class SquareComponent extends JComponent {
     private ChessboardPoint chessboardPoint;
     protected final ChessColor chessColor;
     protected boolean isReversal;
+
+    protected boolean SaveReaversal;
+
+    public void setSaveReaversal(boolean saveReaversal) {
+        SaveReaversal = saveReaversal;
+    }
+
+    public boolean isSaveReaversal() {
+        return SaveReaversal;
+    }
+
     private boolean selected;
+
+    private boolean canmove;
+
+    public void setCanmove(boolean canmove) {
+        this.canmove = canmove;
+    }
+
+    public boolean isCanmove() {
+        return canmove;
+    }
 
     protected int score;
 
@@ -42,7 +63,15 @@ public abstract class SquareComponent extends JComponent {
     /**
      * handle click event
      */
-    private final ClickController clickController;
+    private ClickController clickController;
+
+    public void setClickController(ClickController clickController) {
+        this.clickController = clickController;
+    }
+
+    public ClickController getClickController() {
+        return clickController;
+    }
 
     protected SquareComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
@@ -137,7 +166,9 @@ public abstract class SquareComponent extends JComponent {
                     } else return destinationChess instanceof EmptySlotComponent;
                 } else return false;
             }
-            else return destinationChess.getChessnumber() == 10||destinationChess.getChessnumber() == 0 ;
+            else if((destination.getY() == this.chessboardPoint.getY() && (destination.getX() - this.chessboardPoint.getX() == 1 || this.chessboardPoint.getX() - destination.getX() == 1)) ||
+                    (destination.getX() == this.chessboardPoint.getX() && (destination.getY() - this.chessboardPoint.getY() == 1 || this.chessboardPoint.getY() - destination.getY() == 1)))return destinationChess.getChessnumber() == 10||destinationChess.getChessnumber() == 0 ;
+            else return false;
         }
         else{
             if(!(destinationChess instanceof EmptySlotComponent)) {
@@ -188,4 +219,5 @@ public abstract class SquareComponent extends JComponent {
     public int getScore() {
         return score;
     }
+
 }

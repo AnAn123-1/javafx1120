@@ -21,6 +21,11 @@ public class Chessboard extends JComponent {
     private static final int COL_SIZE = 4;
 
     private final SquareComponent[][] squareComponents = new SquareComponent[ROW_SIZE][COL_SIZE];
+
+    public SquareComponent[][] getSquareComponents() {
+        return squareComponents;
+    }
+
     //todo: you can change the initial player
     private ChessColor currentColor = ChessColor.BLACK;
 
@@ -124,17 +129,17 @@ public class Chessboard extends JComponent {
                 }
                 if(y == 0) color = ChessColor.RED;
                 SquareComponent squareComponent;
-                    int x = random.nextInt(7);
-                    if(color == ChessColor.RED) {
-                        while (a[1][x] == 0) {
-                            x = random.nextInt(7);
-                        }
+                int x = random.nextInt(7);
+                if(color == ChessColor.RED) {
+                    while (a[1][x] == 0) {
+                        x = random.nextInt(7);
                     }
-                    if(color == ChessColor.BLACK) {
-                        while (a[2][x] == 0) {
-                            x = random.nextInt(7);
-                        }
+                }
+                if(color == ChessColor.BLACK) {
+                    while (a[2][x] == 0) {
+                        x = random.nextInt(7);
                     }
+                }
                 switch (x) {
                     case 0 -> {
                         if (color == ChessColor.RED) {
@@ -227,6 +232,70 @@ public class Chessboard extends JComponent {
      */
     public void loadGame(List<String> chessData) {
         chessData.forEach(System.out::println);
+        if (chessData.get(0).equals("0\n")) this.setCurrentColor(ChessColor.BLACK);
+        else this.setCurrentColor(ChessColor.RED);
+        ChessGameFrame.getStatusLabel().setText(String.format("%s's TURN",this.getCurrentColor().getName()));
+        ChessGameFrame.getBlackplayer().setScore(Integer.parseInt(chessData.get(1)));
+        ChessGameFrame.getRedplayer().setScore(Integer.parseInt(chessData.get(2)));
+        ChessGameFrame.getBlackLabel().setText((String.format("BLACK`S SCORE: %d", ChessGameFrame.getBlackplayer().getScore())));
+        ChessGameFrame.getRedLabel().setText(String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore()));
+        int p= 3;
+        int i,j;
+        for(i = 0;i < this.getSquareComponents().length;i ++){
+            for(j = 0;j < this.getSquareComponents()[i].length;j ++){
+                SquareComponent squareComponent;
+                switch (chessData.get(p)){
+                    case "-1" ->{
+                        squareComponent = new EmptySlotComponent(new ChessboardPoint(i, j), calculatePoint(i, j), clickController, CHESS_SIZE);
+                        p++;
+                    }
+                    case "0" ->{
+                        squareComponent = new SoldierChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                    case "2" ->{
+                        squareComponent = new HorseChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                    case "4" ->{
+                        squareComponent = new ChariotChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                    case "6" ->{
+                        squareComponent = new ElephantChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                    case "8" ->{
+                        squareComponent = new GuardChesscomponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                    case "10" ->{
+                        squareComponent = new GeneralChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                    default -> {
+                        squareComponent = new ConnonChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        p+=3;
+                    }
+                }
+                squareComponent.setVisible(true);
+                putChessOnBoard(squareComponent);
+
+            }
+        }
+
+        for(i = 0;i < this.getSquareComponents().length;i ++) {
+            for (j = 0; j < this.getSquareComponents()[i].length; j++) {
+                this.squareComponents[i][j].repaint();
+            }
+        }
     }
 
     public void Restart(){
