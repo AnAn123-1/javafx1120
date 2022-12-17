@@ -44,6 +44,8 @@ public class ChessGameFrame extends JFrame {
           addLabel();
         addHelloButton();
         addLoadButton();
+        addSaveButton();
+        addCheatButton();
     }
 
 
@@ -102,7 +104,7 @@ public class ChessGameFrame extends JFrame {
             chessboard.setCurrentColor(ChessColor.BLACK);
             statusLabel.setText("BLACK's TURN");
         });
-        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 120);
+        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 80);
         button.setSize(180, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -111,9 +113,9 @@ public class ChessGameFrame extends JFrame {
 
     private void addLoadButton() {
         JButton button = new JButton("Load");
-        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 240);
-        button.setSize(180, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 300);
+        button.setSize(80, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 18));
         button.setBackground(Color.LIGHT_GRAY);
         add(button);
 
@@ -123,6 +125,29 @@ public class ChessGameFrame extends JFrame {
             gameController.loadGameFromFile(path);
         });
 
+    }
+
+    private void addSaveButton(){
+        JButton button = new JButton("Save");
+        button.setLocation(WIDTH * 3 / 5 + 100, HEIGHT / 10 + 300);
+        button.setSize(80, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 18));
+        button.setBackground(Color.LIGHT_GRAY);
+        add(button);
+        button.addActionListener(e -> {
+            System.out.println("Click save");
+            String name = JOptionPane.showInputDialog(this, "Input Name here");
+            new Save(name+".txt",chessboard);
+        });
+    }
+
+    private void addCheatButton(){
+        JButton button = new JButton("Cheating Mode");
+        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 190);
+        button.setSize(180, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 18));
+        button.setBackground(Color.LIGHT_GRAY);
+        add(button);
 
     }
 
@@ -141,4 +166,5 @@ public class ChessGameFrame extends JFrame {
     public static Player getRedplayer() {
         return redplayer;
     }
+
 }

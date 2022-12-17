@@ -44,6 +44,12 @@ public class ChessComponent extends SquareComponent{
                 g2.drawOval(spacingLength, spacingLength, getWidth() - 2 * spacingLength, getHeight() - 2 * spacingLength);
             }
         }
+        if(isCanmove()){
+            g.setColor(new Color(0,250,150,100));
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(4f));
+            g2.fillRect(0, 0, getWidth(), getWidth());
+        }
     }
 
     public int getScore() {

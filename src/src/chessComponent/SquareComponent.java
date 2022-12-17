@@ -31,6 +31,16 @@ public abstract class SquareComponent extends JComponent {
     protected boolean isReversal;
     private boolean selected;
 
+    private boolean canmove;
+
+    public void setCanmove(boolean canmove) {
+        this.canmove = canmove;
+    }
+
+    public boolean isCanmove() {
+        return canmove;
+    }
+
     protected int score;
 
     public int getChessnumber() {
@@ -137,7 +147,9 @@ public abstract class SquareComponent extends JComponent {
                     } else return destinationChess instanceof EmptySlotComponent;
                 } else return false;
             }
-            else return destinationChess.getChessnumber() == 10||destinationChess.getChessnumber() == 0 ;
+            else if((destination.getY() == this.chessboardPoint.getY() && (destination.getX() - this.chessboardPoint.getX() == 1 || this.chessboardPoint.getX() - destination.getX() == 1)) ||
+                    (destination.getX() == this.chessboardPoint.getX() && (destination.getY() - this.chessboardPoint.getY() == 1 || this.chessboardPoint.getY() - destination.getY() == 1)))return destinationChess.getChessnumber() == 10||destinationChess.getChessnumber() == 0 ;
+            else return false;
         }
         else{
             if(!(destinationChess instanceof EmptySlotComponent)) {
@@ -188,4 +200,5 @@ public abstract class SquareComponent extends JComponent {
     public int getScore() {
         return score;
     }
+
 }
