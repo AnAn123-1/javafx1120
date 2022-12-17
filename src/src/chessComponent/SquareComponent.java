@@ -29,6 +29,17 @@ public abstract class SquareComponent extends JComponent {
     private ChessboardPoint chessboardPoint;
     protected final ChessColor chessColor;
     protected boolean isReversal;
+
+    protected boolean SaveReaversal;
+
+    public void setSaveReaversal(boolean saveReaversal) {
+        SaveReaversal = saveReaversal;
+    }
+
+    public boolean isSaveReaversal() {
+        return SaveReaversal;
+    }
+
     private boolean selected;
 
     private boolean canmove;
@@ -52,7 +63,15 @@ public abstract class SquareComponent extends JComponent {
     /**
      * handle click event
      */
-    private final ClickController clickController;
+    private ClickController clickController;
+
+    public void setClickController(ClickController clickController) {
+        this.clickController = clickController;
+    }
+
+    public ClickController getClickController() {
+        return clickController;
+    }
 
     protected SquareComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);

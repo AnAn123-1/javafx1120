@@ -1,11 +1,15 @@
 package view;
 
+import chessComponent.EmptySlotComponent;
 import com.sun.javafx.binding.StringFormatter;
+import controller.CheatingClickController;
+import controller.ClickController;
 import controller.GameController;
 import model.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * 这个类表示游戏窗体，窗体上包含：
@@ -141,16 +145,46 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
-    private void addCheatButton(){
+    private void addCheatButton() {
         JButton button = new JButton("Cheating Mode");
         button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 190);
         button.setSize(180, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 18));
         button.setBackground(Color.LIGHT_GRAY);
         add(button);
+        ClickController right = chessboard.getSquareComponents()[0][0].getClickController();
+        button.addActionListener(e -> {
+            if(button.getText().equals("Cheating Mode")) {
+                System.out.println("Cheating Mode");
+                button.setText("Normal Mode");
+                int i, j;
+                for (i = 0; i < chessboard.getSquareComponents().length; i++) {
+                    for (j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
+                        if (!(chessboard.getSquareComponents()[i][j] instanceof EmptySlotComponent)) {
+                            chessboard.getSquareComponents()[i][j].setSaveReaversal(chessboard.getSquareComponents()[i][j].isReversal());
+                            chessboard.getSquareComponents()[i][j].setClickController(new CheatingClickController(chessboard));
+                        }
+                    }
+                }
+            }
+            else{
+                System.out.println("Normal Mode");
+                button.setText("Cheating Mode");
+                int i,j;
 
+                for(i = 0;i < chessboard.getSquareComponents().length;i ++) {
+                    for (j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
+
+                        if (!(chessboard.getSquareComponents()[i][j] instanceof EmptySlotComponent)) {
+                            chessboard.getSquareComponents()[i][j].setReversal(chessboard.getSquareComponents()[i][j].isSaveReaversal());
+                            chessboard.getSquareComponents()[i][j].setClickController(right);
+                            chessboard.getSquareComponents()[i][j].repaint();
+                        }
+                    }
+                }
+            }
+            });
     }
-
     public static JLabel getBlackLabel() {
         return blackLabel;
     }
