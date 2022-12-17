@@ -19,6 +19,9 @@ public class MusicTable extends JFrame {
         addMusicButton1();
         addMusicButton2();
         addMusicButton3();
+        Label label = new Label("Stop playing before switch another one");
+        label.setBounds(10,240,220,50);
+        add(label);
     }
     //粘贴addMusicButton
     int b;
