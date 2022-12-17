@@ -87,7 +87,7 @@ public class ClickController {
      * @return 目标选取的棋子是否与棋盘记录的当前行棋方颜色相同
      */
 
-    private boolean handleFirst(SquareComponent squareComponent) {
+    public boolean handleFirst(SquareComponent squareComponent) {
         if (!squareComponent.isReversal()&&!(squareComponent instanceof EmptySlotComponent)) {
             squareComponent.setReversal(true);
             System.out.printf("onClick to reverse a chess [%d,%d]\n", squareComponent.getChessboardPoint().getX(), squareComponent.getChessboardPoint().getY());
