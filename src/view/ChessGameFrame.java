@@ -1,5 +1,7 @@
 package view;
 
+import Music.Data;
+import Music.MusicTable;
 import chessComponent.EmptySlotComponent;
 import com.sun.javafx.binding.StringFormatter;
 import controller.CheatingClickController;
@@ -10,6 +12,8 @@ import model.ChessColor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Objects;
 
 /**
  * 这个类表示游戏窗体，窗体上包含：
@@ -50,6 +54,7 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addSaveButton();
         addCheatButton();
+        addMusicButton();
     }
 
 
@@ -204,6 +209,103 @@ public class ChessGameFrame extends JFrame {
 
     public static Player getRedplayer() {
         return redplayer;
+    }
+    public void addMusicButton() {
+        Thread thread1 = new Thread(() -> {
+            while (true) {
+                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\Music\\群青.wav"), 0.5);
+            }
+        });
+        Thread thread2 = new Thread(() -> {
+            while (true) {
+                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\Music\\恋爱循环.wav"), 0.5);
+            }
+        });
+        Thread thread3 = new Thread(() -> {
+            while (true) {
+                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\Music\\夜的钢琴曲五.wav"), 0.5);
+            }
+        });
+        JButton button1 = new JButton();
+        JButton button2 = new JButton();
+        JButton button3 = new JButton();
+        JButton button4 = new JButton("⏸");
+
+        button1.addActionListener((e -> {
+            if (thread1.getState() == Thread.State.NEW) {
+                thread1.start();
+            } else {
+                thread1.resume();
+            }
+            if (thread2.getState() == Thread.State.TIMED_WAITING) {
+                thread2.suspend();
+            }
+            if (thread3.getState() == Thread.State.TIMED_WAITING) {
+                thread3.suspend();
+            }
+        }));
+        button2.addActionListener((e -> {
+            if (thread2.getState() == Thread.State.NEW) {
+                thread2.start();
+            } else {
+                thread2.resume();
+            }
+            if (thread1.getState() == Thread.State.TIMED_WAITING) {
+                thread1.suspend();
+            }
+            if (thread3.getState() == Thread.State.TIMED_WAITING) {
+                thread3.suspend();
+            }
+        }));
+        button3.addActionListener((e -> {
+            if (thread3.getState() == Thread.State.NEW) {
+                thread3.start();
+            } else {
+                thread3.resume();
+            }
+            if (thread2.getState() == Thread.State.TIMED_WAITING) {
+                thread2.suspend();
+            }
+            if (thread1.getState() == Thread.State.TIMED_WAITING) {
+                thread1.suspend();
+            }
+        }));
+        button4.addActionListener((e -> {
+            if (thread1.getState() == Thread.State.TIMED_WAITING) {
+                thread1.suspend();
+            }
+            if (thread2.getState() == Thread.State.TIMED_WAITING) {
+                thread2.suspend();
+            }
+            if (thread3.getState() == Thread.State.TIMED_WAITING) {
+                thread3.suspend();
+            }
+        }));
+
+        ImageIcon square = new ImageIcon("D:\\IdeaProjects\\pro_try\\src\\Music\\冷酷的星之卡比.png");//获取一个图片
+        square.setImage(square.getImage().getScaledInstance(50, 50, 0));//设置图片的大小
+        button1.setIcon(square);//把图片放到按钮上
+        button1.setPressedIcon(square);
+        button1.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 500, 50, 30);
+        button1.setFont(new Font("音乐1", Font.BOLD, 10));
+        add(button1);
+        button2.setIcon(square);
+        button2.setPressedIcon(square);
+        button2.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 530, 50, 30);
+        button2.setFont(new Font("音乐2", Font.BOLD, 10));
+        add(button2);
+        button3.setIcon(square);
+        button3.setPressedIcon(square);
+        button3.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 560, 50, 30);
+        button3.setFont(new Font("音乐3", Font.BOLD, 10));
+        add(button3);
+        button4.setBackground(Color.WHITE);
+        button4.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 590, 50, 30);
+        button4.setFont(new Font("暂停", Font.BOLD, 10));
+        add(button4);
+        Label label = new Label("Music");
+        label.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 620, 50, 30);
+        add(label);
     }
 
 }
