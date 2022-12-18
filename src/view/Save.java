@@ -33,8 +33,8 @@ public class Save {
         try {
             if(save.createNewFile()){
                 FileWriter writer = new FileWriter(name);
-                if(chessboard.getCurrentColor()== ChessColor.BLACK) writer.write("0\n");
-                else writer.write("1\n");
+                if(chessboard.getCurrentColor()== ChessColor.BLACK) writer.write("100\n");
+                else writer.write("101\n");
                 writer.write(ChessGameFrame.getBlackplayer().getScore()+"\n"+ChessGameFrame.getRedplayer().getScore()+"\n");
                 int i,j;
                 for(i = 0;i < chessboard.getSquareComponents().length;i ++){

@@ -1,6 +1,5 @@
 package view;
 
-import Music.MusicTable;
 import chessComponent.EmptySlotComponent;
 import com.sun.javafx.binding.StringFormatter;
 import controller.CheatingClickController;
@@ -51,7 +50,6 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addSaveButton();
         addCheatButton();
-        addMusic();
     }
 
 
@@ -128,7 +126,12 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this, "Input Path here");
-            gameController.loadGameFromFile(path);
+            if(path.endsWith(".txt")) {
+                gameController.loadGameFromFile(path);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"101:FILE FORMAT ERROE!","ERROR",JOptionPane.ERROR_MESSAGE);
+            }
         });
 
     }
@@ -186,18 +189,6 @@ public class ChessGameFrame extends JFrame {
                 }
             }
         });
-    }
-    public void addMusic(){
-        JButton button = new JButton("Music");
-        button.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 500,80, 60);
-        button.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> {
-                MusicTable musicTable = new MusicTable(250,480);
-                musicTable.setVisible(true);
-            });
-        });
-        button.setBackground(Color.LIGHT_GRAY);
-        add(button);
     }
     public static JLabel getBlackLabel() {
         return blackLabel;

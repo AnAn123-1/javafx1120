@@ -231,9 +231,16 @@ public class Chessboard extends JComponent {
      * @param chessData
      */
     public void loadGame(List<String> chessData) {
+        chessData.add("-2");
+        chessData.add("-2");
+        chessData.add("-2");
         chessData.forEach(System.out::println);
-        if (chessData.get(0).equals("0\n")) this.setCurrentColor(ChessColor.BLACK);
-        else this.setCurrentColor(ChessColor.RED);
+        int[][] a = new int[][]{{5, 2, 2, 2, 2, 2, 1},{5, 2, 2, 2, 2, 2, 1}};
+        if (chessData.get(0).equals("100")) this.setCurrentColor(ChessColor.BLACK);
+        else if(chessData.get(0).equals("101"))this.setCurrentColor(ChessColor.RED);
+        else{
+            JOptionPane.showMessageDialog(null,"104:FILE CONTENT ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
         ChessGameFrame.getStatusLabel().setText(String.format("%s's TURN",this.getCurrentColor().getName()));
         ChessGameFrame.getBlackplayer().setScore(Integer.parseInt(chessData.get(1)));
         ChessGameFrame.getRedplayer().setScore(Integer.parseInt(chessData.get(2)));
@@ -241,56 +248,115 @@ public class Chessboard extends JComponent {
         ChessGameFrame.getRedLabel().setText(String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore()));
         int p= 3;
         int i,j;
+        boolean b1 = false;
+        boolean b2 = false;
         for(i = 0;i < this.getSquareComponents().length;i ++){
             for(j = 0;j < this.getSquareComponents()[i].length;j ++){
                 SquareComponent squareComponent;
+                if(chessData.get(p)==null){
+                    JOptionPane.showMessageDialog(null,"102:FILE CONTENT ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
+                    b2 = true;
+                    break;
+                }
+                int x = 0;
                 switch (chessData.get(p)){
                     case "-1" ->{
                         squareComponent = new EmptySlotComponent(new ChessboardPoint(i, j), calculatePoint(i, j), clickController, CHESS_SIZE);
                         p++;
+                        x = 1;
                     }
                     case "0" ->{
                         squareComponent = new SoldierChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
                         squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][0]--;
+                        else a[1][0]--;
                         p+=3;
                     }
                     case "2" ->{
                         squareComponent = new HorseChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
                         squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][1]--;
+                        else a[1][1]--;
                         p+=3;
                     }
                     case "4" ->{
                         squareComponent = new ChariotChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
                         squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][2]--;
+                        else a[1][2]--;
                         p+=3;
                     }
                     case "6" ->{
                         squareComponent = new ElephantChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
                         squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][3]--;
+                        else a[1][3]--;
                         p+=3;
                     }
                     case "8" ->{
                         squareComponent = new GuardChesscomponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
                         squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][4]--;
+                        else a[1][4]--;
                         p+=3;
                     }
                     case "10" ->{
                         squareComponent = new GeneralChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
                         squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][6]--;
+                        else a[1][6]--;
+                        p+=3;
+                    }
+                    case "12" ->{
+                        squareComponent = new ConnonChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
+                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
+                        if(chessData.get(p + 1).equals("1")) a[0][5]--;
+                        else a[1][5]--;
                         p+=3;
                     }
                     default -> {
-                        squareComponent = new ConnonChessComponent(new ChessboardPoint(i,j),calculatePoint(i,j), chessData.get(p + 1).equals("1") ?ChessColor.BLACK:ChessColor.RED,clickController,CHESS_SIZE);
-                        squareComponent.setReversal(chessData.get(p + 2).equals("1"));
-                        p+=3;
+                        JOptionPane.showMessageDialog(null,"103:FILE CONTENT ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
+                        b1 = true;
+                        b2 = true;
+                        squareComponent = new EmptySlotComponent(new ChessboardPoint(i, j), calculatePoint(i, j), clickController, CHESS_SIZE);
                     }
+                }
+                if(x == 0) {
+                    if (!(chessData.get(p - 2).equals("0") || chessData.get(p - 2).equals("1"))) {
+                        JOptionPane.showMessageDialog(null, "102:FILE CONTENT ERROR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        b2 = true;
+                        break;
+                    }
+                    if (!(chessData.get(p - 1).equals("0") || chessData.get(p - 1).equals("1"))) {
+                        JOptionPane.showMessageDialog(null, "102:FILE CONTENT ERROR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        b2 = true;
+                        break;
+                    }
+                }
+                int o,q;
+                for(o = 0;o < 2;o ++){
+                    for(q = 0;q < 7;q ++){
+                        if(a[o][q] < 0) {
+                            JOptionPane.showMessageDialog(null, "103:FILE CONTENT ERROR", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            b1 = true;
+                            b2 = true;
+                            break;
+                        }
+                    }
+                    if(b1) break;
+                }
+                if(b1) {
+                    break;
                 }
                 squareComponent.setVisible(true);
                 putChessOnBoard(squareComponent);
 
             }
+            if(b2) break;
         }
-
+        if(!chessData.get(p).equals("-2")){
+            JOptionPane.showMessageDialog(null,"102:FILE CONTENT ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
         for(i = 0;i < this.getSquareComponents().length;i ++) {
             for (j = 0; j < this.getSquareComponents()[i].length; j++) {
                 this.squareComponents[i][j].repaint();

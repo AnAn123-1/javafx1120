@@ -2,6 +2,7 @@ package controller;
 
 import view.Chessboard;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +27,7 @@ public class GameController {
             return chessData;
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"FILE DOSE NOT EXIST!","ERROR",JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
