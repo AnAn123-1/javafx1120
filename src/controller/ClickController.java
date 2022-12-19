@@ -58,8 +58,8 @@ public class ClickController {
                 int i,j;
                 for(i = 0;i < chessboard.getChessComponents().length;i ++){
                     for(j = 0;j < chessboard.getChessComponents()[i].length;j ++){
-                        chessboard.getChessComponents()[i][j].setCanmove(false);
-                        chessboard.getChessComponents()[i][j].repaint();
+                            chessboard.getChessComponents()[i][j].setCanmove(false);
+                            chessboard.getChessComponents()[i][j].repaint();
                     }
                 }
             }
@@ -105,13 +105,13 @@ public class ClickController {
 
     private boolean handleSecond(SquareComponent squareComponent) {
         if(first.getChessnumber()<12) {
-            //没翻开或空棋子，进入if
-            if (!squareComponent.isReversal()) {
-                //没翻开且非空棋子不能走
-                if (!(squareComponent instanceof EmptySlotComponent)) {
-                    return false;
-                }
+        //没翻开或空棋子，进入if
+        if (!squareComponent.isReversal()) {
+            //没翻开且非空棋子不能走
+            if (!(squareComponent instanceof EmptySlotComponent)) {
+                return false;
             }
+        }
 
             return squareComponent.getChessColor() != chessboard.getCurrentColor() &&
                     first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());

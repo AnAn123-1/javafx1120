@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
  */
 public abstract class SquareComponent extends JComponent {
 
-    private static final Color squareColor = new Color(250, 220, 190);
+    private static final Color squareColor = new Color(255, 215, 215);
     protected static int spacingLength;
     protected static final Font CHESS_FONT = new Font("Rockwell", Font.BOLD, 36);
 

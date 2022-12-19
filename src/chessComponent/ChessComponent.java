@@ -25,10 +25,10 @@ public class ChessComponent extends SquareComponent{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         //绘制棋子填充色
-        g.setColor(Color.ORANGE);
+        g.setColor(Color.PINK);
         g.fillOval(spacingLength, spacingLength, this.getWidth() - 2 * spacingLength, this.getHeight() - 2 * spacingLength);
-        //绘制棋子边框
-        g.setColor(Color.DARK_GRAY);
+       //绘制棋子边框
+        g.setColor(new Color(65,2,27));
         g.drawOval(spacingLength, spacingLength, getWidth() - 2 * spacingLength, getHeight() - 2 * spacingLength);
 
         if (isReversal) {
