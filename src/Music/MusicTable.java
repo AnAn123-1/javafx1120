@@ -154,4 +154,12 @@ public class MusicTable extends JFrame {
         button.setFont(new Font("音乐2", Font.BOLD, 20));
         add(button);
     }*/
+    public void addSoundEffect(){
+        MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\落子.wav");
+        Thread thread1 = new Thread(() -> {
+            while (true) {
+                musicPlayer1.setVolumn(6f).play();
+            }
+        });
+    }
 }

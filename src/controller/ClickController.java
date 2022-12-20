@@ -1,6 +1,8 @@
 package controller;
 
 
+import Music.Data;
+import Music.MusicPlayer;
 import chessComponent.SquareComponent;
 import chessComponent.EmptySlotComponent;
 import model.ChessColor;
@@ -9,6 +11,7 @@ import view.ChessGameFrame;
 import view.Chessboard;
 
 import javax.swing.*;
+import java.io.File;
 
 public class ClickController {
     private final Chessboard chessboard;
@@ -129,4 +132,8 @@ public class ClickController {
         chessboard.setCurrentColor(chessboard.getCurrentColor() == ChessColor.BLACK ? ChessColor.RED : ChessColor.BLACK);
         ChessGameFrame.getStatusLabel().setText(String.format("%s's TURN", chessboard.getCurrentColor().getName()));
     }
+
+
+
+
 }

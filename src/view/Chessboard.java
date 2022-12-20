@@ -99,13 +99,13 @@ public class Chessboard extends JComponent {
         if(ChessGameFrame.getRedplayer().getScore() >= 60 || ChessGameFrame.getBlackplayer().getScore() >= 60 ){
 
             Restart();
+            Dialog dial = new Dialog(ChessGameFrame.getRedplayer().getScore()>ChessGameFrame.getBlackplayer().getScore()?"RED":"BLACK");
             ChessGameFrame.getRedplayer().setScore(0);
             ChessGameFrame.getBlackplayer().setScore(0);
             ChessGameFrame.getRedLabel().setText((String.format("RED`S SCORE: %d", ChessGameFrame.getRedplayer().getScore())));
             ChessGameFrame.getBlackLabel().setText((String.format("BLACK`S SCORE: %d", ChessGameFrame.getBlackplayer().getScore())));
             this.setCurrentColor(ChessColor.BLACK);
             ChessGameFrame.getStatusLabel().setText("BLACK's TURN");
-            Dialog dial = new Dialog(ChessGameFrame.getRedplayer().getScore()>ChessGameFrame.getBlackplayer().getScore()?"RED":"BLACK");
         }
     }
 
@@ -212,6 +212,7 @@ public class Chessboard extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.setColor(new Color(95,50,50));
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     }

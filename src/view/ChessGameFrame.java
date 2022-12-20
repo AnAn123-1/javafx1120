@@ -48,6 +48,13 @@ public class ChessGameFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
         setLayout(null);
 
+        ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910a.jpeg");
+        JLabel imgLabel = new JLabel(img);
+        this.getLayeredPane().add(imgLabel,new Integer(Integer.MIN_VALUE));
+        imgLabel.setBounds(-8,-8,this.WIDTH,this.HEIGHT);
+        Container contain = this.getContentPane();
+        ((JPanel) contain).setOpaque(false);
+
         addChessboard();
         addLabel();
         addHelloButton();
@@ -73,9 +80,9 @@ public class ChessGameFrame extends JFrame {
      */
     private void addLabel() {
         statusLabel = new JLabel("BLACK's TURN");
-        statusLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10);
-        statusLabel.setSize(200, 60);
-        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        statusLabel.setLocation(WIDTH * 3 / 5-10, HEIGHT / 10);
+        statusLabel.setSize(230, 60);
+        statusLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 30));
         add(statusLabel);
 
         blackplayer = new Player();
@@ -83,13 +90,13 @@ public class ChessGameFrame extends JFrame {
         blackplayer.setScore(0);
         redplayer.setScore(0);
         blackLabel = new JLabel(String.format("BLACK`S SCORE : %d",blackplayer.getScore()));
-        blackLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 370);
+        blackLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 375);
         blackLabel.setSize(250,60);
-        blackLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        blackLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 20));
         redLabel = new JLabel(String.format("RED`S SCORE : %d",redplayer.getScore()));
-        redLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 420);
+        redLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 425);
         redLabel.setSize(250,60);
-        redLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        redLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 20));
         add(blackLabel);
         add(redLabel);
     }
@@ -103,7 +110,7 @@ public class ChessGameFrame extends JFrame {
      */
 
     private void addHelloButton() {
-        JButton button = new JButton("new game");
+        JButton button = new JButton();
         button.addActionListener(e ->  {
             chessboard.Restart();
             blackplayer.setScore(0);
@@ -115,17 +122,19 @@ public class ChessGameFrame extends JFrame {
         });
         button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 80);
         button.setSize(180, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+
+        ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220004144.jpg");
+        button.setIcon(img);
         add(button);
     }
 
 
     private void addLoadButton() {
-        JButton button = new JButton("Load");
+        JButton button = new JButton();
         button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 300);
         button.setSize(80, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 18));
-        button.setBackground(Color.LIGHT_GRAY);
+        ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220004155.jpg");
+        button.setIcon(img);
         add(button);
 
         button.addActionListener(e -> {
@@ -142,11 +151,12 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addSaveButton(){
-        JButton button = new JButton("Save");
+        JButton button = new JButton();
         button.setLocation(WIDTH * 3 / 5 + 100, HEIGHT / 10 + 300);
         button.setSize(80, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 18));
-        button.setBackground(Color.LIGHT_GRAY);
+
+        ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220004158.jpg");
+        button.setIcon(img);
         add(button);
         button.addActionListener(e -> {
             System.out.println("Click save");
@@ -156,17 +166,18 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addCheatButton() {
-        JButton button = new JButton("Cheating Mode");
+        JButton button = new JButton();
         button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 190);
         button.setSize(180, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 18));
-        button.setBackground(Color.LIGHT_GRAY);
+        ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220110507.jpg");
+        ImageIcon img2 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220112043.jpg");
+        button.setIcon(img);
         add(button);
         ClickController right = chessboard.getSquareComponents()[0][0].getClickController();
         button.addActionListener(e -> {
-            if(button.getText().equals("Cheating Mode")) {
+            if(button.getIcon() == img) {
                 System.out.println("Cheating Mode");
-                button.setText("Normal Mode");
+                button.setIcon(img2);
                 int i, j;
                 for (i = 0; i < chessboard.getSquareComponents().length; i++) {
                     for (j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
@@ -179,9 +190,8 @@ public class ChessGameFrame extends JFrame {
             }
             else{
                 System.out.println("Normal Mode");
-                button.setText("Cheating Mode");
+                button.setIcon(img);
                 int i,j;
-
                 for(i = 0;i < chessboard.getSquareComponents().length;i ++) {
                     for (j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
 
@@ -213,17 +223,17 @@ public class ChessGameFrame extends JFrame {
     public void addMusicButton() {
         Thread thread1 = new Thread(() -> {
             while (true) {
-                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\Music\\群青.wav"), 0.5);
+                Data.playMusic(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\群青.wav"), 0.5);
             }
         });
         Thread thread2 = new Thread(() -> {
             while (true) {
-                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\Music\\恋爱循环.wav"), 0.5);
+                Data.playMusic(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\恋爱循环.wav"), 0.5);
             }
         });
         Thread thread3 = new Thread(() -> {
             while (true) {
-                Data.playMusic(new File("D:\\IdeaProjects\\pro_try\\src\\Music\\夜的钢琴曲五.wav"), 0.5);
+                Data.playMusic(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\夜的钢琴曲五.wav"), 0.5);
             }
         });
         JButton button1 = new JButton();
@@ -282,7 +292,7 @@ public class ChessGameFrame extends JFrame {
             }
         }));
 
-        ImageIcon square = new ImageIcon("D:\\IdeaProjects\\pro_try\\src\\Music\\冷酷的星之卡比.png");//获取一个图片
+        ImageIcon square = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\Music\\冷酷的星之卡比.png");//获取一个图片
         square.setImage(square.getImage().getScaledInstance(50, 50, 0));//设置图片的大小
         button1.setIcon(square);//把图片放到按钮上
         button1.setPressedIcon(square);
