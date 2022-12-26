@@ -8,28 +8,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class eChessboard extends JFrame{
-    public eChessboard(){
+    public eChessboard(int[][] i){
         setTitle("Dark Chess!"); //设置标题
         setLocationRelativeTo(null); // Center the window.
-        setBounds(800,0,400,1000);
+        setBounds(750,50,400,800);
         getContentPane().setBackground(Color.white);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setLayout(null);
 
-        addPicture(1,0,5);
-        addPicture(1,2,1);
-        addPicture(1,4,2);
-        addPicture(1,6,1);
-        addPicture(1,8,2);
-        addPicture(1,10,1);
-        addPicture(1,12,1);
-        addPicture(2,0,5);
-        addPicture(2,2,1);
-        addPicture(2,4,0);
-        addPicture(2,6,1);
-        addPicture(2,8,0);
-        addPicture(2,10,1);
-        addPicture(2,12,2);//只要在ChessGameFrame里计算出被吃的数量
+        addPicture(1,0,i[0][0]);
+        addPicture(1,2,i[0][1]);
+        addPicture(1,4,i[0][2]);
+        addPicture(1,6,i[0][3]);
+        addPicture(1,8,i[0][4]);
+        addPicture(1,10,i[0][5]);
+        addPicture(1,12,i[0][6]);
+        addPicture(2,0,i[1][0]);
+        addPicture(2,2,i[1][1]);
+        addPicture(2,4,i[1][2]);
+        addPicture(2,6,i[1][3]);
+        addPicture(2,8,i[1][4]);
+        addPicture(2,10,i[1][5]);
+        addPicture(2,12,i[1][6]);//只要在ChessGameFrame里计算出被吃的数量
 
     }
     public void addPicture(int color,int type,int number){
@@ -157,7 +157,7 @@ public class eChessboard extends JFrame{
                     }
                 }
                 case (12)->{
-                    ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红炮.gif");
+                    ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\黑炮.gif");
                     img.setImage(img.getImage().getScaledInstance(80, 80, 0));
                     for(int n=0;n<number;n++){
                         JLabel label = new JLabel(img);

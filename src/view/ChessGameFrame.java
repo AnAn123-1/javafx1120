@@ -45,7 +45,9 @@ public class ChessGameFrame extends JFrame {
     private JButton loadButton;
     private JButton saveButton;
     private JButton cheatButton;
-    private JButton[] musicButton[];
+    private JButton musicButton[];
+    private JButton eatenButton;
+
 
     public ChessGameFrame(int width, int height) {
         setTitle("Dark Chess!"); //设置标题
@@ -96,12 +98,20 @@ public class ChessGameFrame extends JFrame {
                 int y=jp1.getHeight();
                 i.setImage(i.getImage().getScaledInstance(Math.max(x,y),Math.max(x,y),Image.SCALE_DEFAULT));
                 jl.setBounds(0, 0, x, y);
-                chessboard.setLocation(x/10,y/10);
+                chessboard.setLocation(x/2-chessboard.getWidth(),y/10);
                 statusLabel.setLocation(x * 3 / 5 - 10, y / 10);
                 redLabel.setLocation(x * 3 / 5, y / 10 + 425);
                 blackLabel.setLocation(x * 3 / 5, y / 10 + 375);
                 music.setLocation(x * 3 / 5, y / 10 + 620);
                 helloButton.setLocation(x * 3 / 5, y / 10 + 80);
+                loadButton.setLocation(x * 3 / 5, y / 10 + 300);
+                saveButton.setLocation(x * 3 / 5 + 100, y / 10 + 300);
+                cheatButton.setLocation(x * 3 / 5, y / 10 + 190);
+                musicButton[0].setLocation(x * 3 / 5, y / 10 + 500);
+                musicButton[1].setLocation(x * 3 / 5, y / 10 + 530);
+                musicButton[2].setLocation(x * 3 / 5, y / 10 + 560);
+                musicButton[3].setLocation(x * 3 / 5, y / 10 + 590);
+                eatenButton.setLocation(x * 3 / 5 + 80, y / 10 + 500);
 
                 // TODO 自动生成的方法存根
             }
@@ -328,12 +338,13 @@ public class ChessGameFrame extends JFrame {
                 Data.playMusic(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\夜的钢琴曲五.wav"), 0.5);
             }
         });
-        JButton button1 = new JButton();
-        JButton button2 = new JButton();
-        JButton button3 = new JButton();
-        JButton button4 = new JButton("⏸");
+        musicButton = new JButton[4];
+        musicButton[0]=new JButton();
+        musicButton[1]=new JButton();
+        musicButton[2]=new JButton();
+        musicButton[3] = new JButton("⏸");
 
-        button1.addActionListener((e -> {
+        musicButton[0].addActionListener((e -> {
             if (thread1.getState() == Thread.State.NEW) {
                 thread1.start();
             } else {
@@ -346,7 +357,7 @@ public class ChessGameFrame extends JFrame {
                 thread3.suspend();
             }
         }));
-        button2.addActionListener((e -> {
+        musicButton[1].addActionListener((e -> {
             if (thread2.getState() == Thread.State.NEW) {
                 thread2.start();
             } else {
@@ -359,7 +370,7 @@ public class ChessGameFrame extends JFrame {
                 thread3.suspend();
             }
         }));
-        button3.addActionListener((e -> {
+        musicButton[2].addActionListener((e -> {
             if (thread3.getState() == Thread.State.NEW) {
                 thread3.start();
             } else {
@@ -372,7 +383,7 @@ public class ChessGameFrame extends JFrame {
                 thread1.suspend();
             }
         }));
-        button4.addActionListener((e -> {
+        musicButton[3].addActionListener((e -> {
             if (thread1.getState() == Thread.State.TIMED_WAITING) {
                 thread1.suspend();
             }
@@ -386,100 +397,36 @@ public class ChessGameFrame extends JFrame {
 
         ImageIcon square = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\Music\\冷酷的星之卡比.png");//获取一个图片
         square.setImage(square.getImage().getScaledInstance(50, 50, 0));//设置图片的大小
-        button1.setIcon(square);//把图片放到按钮上
-        button1.setPressedIcon(square);
-        button1.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 500, 50, 30);
-        button1.setFont(new Font("音乐1", Font.BOLD, 10));
-        add(button1);
-        button2.setIcon(square);
-        button2.setPressedIcon(square);
-        button2.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 530, 50, 30);
-        button2.setFont(new Font("音乐2", Font.BOLD, 10));
-        add(button2);
-        button3.setIcon(square);
-        button3.setPressedIcon(square);
-        button3.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 560, 50, 30);
-        button3.setFont(new Font("音乐3", Font.BOLD, 10));
-        add(button3);
-        button4.setBackground(Color.WHITE);
-        button4.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 590, 50, 30);
-        button4.setFont(new Font("暂停", Font.BOLD, 10));
-        add(button4);
+        musicButton[0].setIcon(square);//把图片放到按钮上
+        musicButton[0].setPressedIcon(square);
+        musicButton[0].setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 500, 50, 30);
+        musicButton[0].setFont(new Font("音乐1", Font.BOLD, 10));
+        add(musicButton[0]);
+        musicButton[1].setIcon(square);
+        musicButton[1].setPressedIcon(square);
+        musicButton[1].setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 530, 50, 30);
+        musicButton[1].setFont(new Font("音乐2", Font.BOLD, 10));
+        add(musicButton[1]);
+        musicButton[2].setIcon(square);
+        musicButton[2].setPressedIcon(square);
+        musicButton[2].setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 560, 50, 30);
+        musicButton[2].setFont(new Font("音乐3", Font.BOLD, 10));
+        add(musicButton[2]);
+        musicButton[3].setBackground(Color.WHITE);
+        musicButton[3].setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 590, 50, 30);
+        musicButton[3].setFont(new Font("暂停", Font.BOLD, 10));
+        add(musicButton[3]);
     }
 
     private SquareComponent esquareComponent;
     private SquareComponent[][] esquareComponents = new SquareComponent[8][4];
 
     public void addEatenButton() {
-        JButton button = new JButton();
-        button.setBounds(WIDTH * 3 / 5 + 100, HEIGHT / 10 + 500, 50, 30);
+        eatenButton = new JButton();
+        eatenButton.setBounds(WIDTH * 3 / 5 + 80, HEIGHT / 10 + 500, 100, 60);
         JFrame jFrame = new JFrame();
         jFrame.setLocationRelativeTo(null);
         jFrame.setSize(400, 400);
-
-        int[][] count = {{5, 2, 2, 2, 2, 1, 2}, {5, 2, 2, 2, 2, 1, 2}};//应该显示在被吃窗口的棋子数量。第一行红
-        for (int i = 0; i < chessboard.getSquareComponents().length; i++) {
-            for (int j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
-                //soldier
-                if (chessboard.getSquareComponents()[i][j] instanceof SoldierChessComponent) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][0] -= 1;
-                    } else count[1][0] -= 1;
-                    //squareComponent = new SoldierChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
-                }
-                //horse
-                if (chessboard.getSquareComponents()[i][j].getChessnumber() == 2) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][1] -= 1;
-                    } else count[1][1] -= 1;
-                }
-                //Chariot
-                if (chessboard.getSquareComponents()[i][j].getChessnumber() == 4) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][2] -= 1;
-                    } else count[1][2] -= 1;
-                }
-                //Elephant
-                if (chessboard.getSquareComponents()[i][j].getChessnumber() == 6) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][3] -= 1;
-                    } else count[1][3] -= 1;
-                }
-                //Guard
-                if (chessboard.getSquareComponents()[i][j].getChessnumber() == 8) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][4] -= 1;
-                    } else count[1][4] -= 1;
-                }
-                //General
-                if (chessboard.getSquareComponents()[i][j].getChessnumber() == 10) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][5] -= 1;
-                    } else count[1][5] -= 1;
-                }
-                //Connon
-                if (chessboard.getSquareComponents()[i][j].getChessnumber() == 12) {
-                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][6] -= 1;
-                    } else count[1][6] -= 1;
-                }
-            }
-        }
-
-        ImageIcon imga1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红兵.gif");
-        imga1.setImage(imga1.getImage().getScaledInstance(80, 80, 0));//设置图片的大小
-        JLabel labela1 = new JLabel(imga1);
-        labela1.setBounds(0, 0, 80, 80);
-
-        ImageIcon imgb1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红马.gif");
-        ImageIcon imgc1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红车.gif");
-        ImageIcon imgd1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红象.gif");
-        ImageIcon imge1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红士.gif");
-        ImageIcon imgf1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红帅.gif");
-        ImageIcon imgg1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红炮.gif");
-        JButton[][] jButtons = new JButton[2][16];
-        JButton jButton1 = new JButton();
-
 
         /*for (int i = 0; i < esquareComponents.length; i++) {
             for (int j = 0; j < esquareComponents[i].length; j++) {
@@ -513,15 +460,66 @@ public class ChessGameFrame extends JFrame {
             }
         }*/
 
-        button.addActionListener(e -> {
+        eatenButton.addActionListener(e -> {
+            int[][] count = {{5, 2, 2, 2, 2, 1, 2}, {5, 2, 2, 2, 2, 1, 2}};//应该显示在被吃窗口的棋子数量。第一行红
+            for (int i = 0; i < chessboard.getSquareComponents().length; i++) {
+                for (int j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
+                    //soldier
+                    if (chessboard.getSquareComponents()[i][j] instanceof SoldierChessComponent) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][0] -= 1;
+                        } else count[1][0] -= 1;
+                        //squareComponent = new SoldierChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
+                    }
+                    //horse
+                    if (chessboard.getSquareComponents()[i][j].getChessnumber() == 2) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][1] -= 1;
+                        } else count[1][1] -= 1;
+                    }
+                    //Chariot
+                    if (chessboard.getSquareComponents()[i][j].getChessnumber() == 4) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][2] -= 1;
+                        } else count[1][2] -= 1;
+                    }
+                    //Elephant
+                    if (chessboard.getSquareComponents()[i][j].getChessnumber() == 6) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][3] -= 1;
+                        } else count[1][3] -= 1;
+                    }
+                    //Guard
+                    if (chessboard.getSquareComponents()[i][j].getChessnumber() == 8) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][4] -= 1;
+                        } else count[1][4] -= 1;
+                    }
+                    //General
+                    if (chessboard.getSquareComponents()[i][j].getChessnumber() == 10) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][5] -= 1;
+                        } else count[1][5] -= 1;
+                    }
+                    //Connon
+                    if (chessboard.getSquareComponents()[i][j].getChessnumber() == 12) {
+                        if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                            count[0][6] -= 1;
+                        } else count[1][6] -= 1;
+                    }
+                }
+            }
             for (int i = 0; i < count.length; i++) {
                 for (int j = 0; j < count[i].length; j++) {
                     System.out.print(count[i][j]);
                 }
             }
-            eChessboard eChessboard = new eChessboard();
+            eChessboard eChessboard = new eChessboard(count);
             eChessboard.setVisible(true);
         });
-        add(button);
+        ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\Music\\狂炫的星之卡比.gif");
+        img.setImage(img.getImage().getScaledInstance(100, 100*338/500, 0));//设置图片的大小
+        eatenButton.setIcon(img);
+        add(eatenButton);
     }
 }
