@@ -1,17 +1,22 @@
 package view;
 
 import Music.Data;
-import Music.MusicPlayer;
 import Music.MusicTable;
 import chessComponent.*;
 import controller.CheatingClickController;
 import controller.ClickController;
 import controller.GameController;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import model.ChessColor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -33,35 +38,37 @@ public class ChessGameFrame extends JFrame {
     private static Player blackplayer;
 
     private static Player redplayer;
+    private static JLabel music;
 
     private Chessboard chessboard;
+    private JButton helloButton;
+    private JButton loadButton;
+    private JButton saveButton;
+    private JButton cheatButton;
+    private JButton[] musicButton[];
 
     public ChessGameFrame(int width, int height) {
         setTitle("Dark Chess!"); //设置标题
+        //width=800;height=800;
         this.WIDTH = width;
         this.HEIGHT = height;
         this.CHESSBOARD_SIZE = HEIGHT * 4 / 5;
-
+        //setFocusableWindowState(false);
+        setForeground(Color.PINK);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null); // Center the window.
         getContentPane().setBackground(Color.WHITE);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
-        setLayout(null);
+        //setResizable(false);//不允许放大hhh
+        //setLayout(null);//固定格式？？
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //Dimension windowSize = Toolkit.getDefaultToolkit().getBestCursorSize(this.WIDTH,this.HEIGHT);
-
+/*
         ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910a.jpeg");
-        ImageIcon img2 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910b.jpeg");
         JLabel imgLabel = new JLabel(img);
-        JLabel imgLabel2 = new JLabel(img2);
-        this.getLayeredPane().add(imgLabel, new Integer(Integer.MIN_VALUE));//置于底层
-        this.getLayeredPane().add(imgLabel2, new Integer(Integer.MIN_VALUE));//置于底层
-        //setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );//全屏
         imgLabel.setBounds(-8, -8, this.WIDTH, this.HEIGHT);
-        Container contain = this.getContentPane();
-        ((JPanel) contain).setOpaque(false);
-
+        this.getLayeredPane().add(imgLabel, new Integer(Integer.MIN_VALUE));//置于底层
+*/
         addChessboard();
         addLabel();
         addHelloButton();
@@ -70,9 +77,56 @@ public class ChessGameFrame extends JFrame {
         addCheatButton();
         addMusicButton();
         addEatenButton();
+
+        setSize(width,height);
+        final ImageIcon i = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910a.jpeg");
+        final JPanel jp1=new JPanel();
+        jp1.setLayout(null);
+        final JLabel jl = new JLabel(i);
+        jp1.add(jl, new Integer(Integer.MIN_VALUE));
+
+        ComponentListener listener=new ComponentListener() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                // TODO 自动生成的方法存根
+            }
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int x=jp1.getWidth();    //这里就比较关键
+                int y=jp1.getHeight();
+                i.setImage(i.getImage().getScaledInstance(Math.max(x,y),Math.max(x,y),Image.SCALE_DEFAULT));
+                jl.setBounds(0, 0, x, y);
+                chessboard.setLocation(x/10,y/10);
+                statusLabel.setLocation(x * 3 / 5 - 10, y / 10);
+                redLabel.setLocation(x * 3 / 5, y / 10 + 425);
+                blackLabel.setLocation(x * 3 / 5, y / 10 + 375);
+                music.setLocation(x * 3 / 5, y / 10 + 620);
+                helloButton.setLocation(x * 3 / 5, y / 10 + 80);
+
+                // TODO 自动生成的方法存根
+            }
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                // TODO 自动生成的方法存根
+            }
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                // TODO 自动生成的方法存根
+            }
+        };
+
+
+        Container contain = this.getContentPane();
+        ((JPanel) contain).setOpaque(false);
+
+
+        add(jp1);
+        addComponentListener(listener);
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键
     }
 
-    /*修改图片至特定尺寸：运行一下这个main方法*/
+    /*修改图片至特定尺寸：运行一下这个main方法*//*
     public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_AREA_AVERAGING);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
@@ -92,14 +146,14 @@ public class ChessGameFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     /**
      * 在游戏窗体中添加棋盘
      */
     private void addChessboard() {
-        chessboard = new Chessboard(CHESSBOARD_SIZE / 2, CHESSBOARD_SIZE,0);
+        chessboard = new Chessboard(CHESSBOARD_SIZE / 2, CHESSBOARD_SIZE, 0);
         gameController = new GameController(chessboard);
         chessboard.setLocation(HEIGHT / 10, HEIGHT / 10);
         add(chessboard);
@@ -129,7 +183,7 @@ public class ChessGameFrame extends JFrame {
         redLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 20));
         add(blackLabel);
         add(redLabel);
-        JLabel music = new JLabel("Music");
+        music = new JLabel("Music");
         music.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 620, 50, 30);
         music.setFont(new Font("Showcard Gothic", Font.BOLD, 12));
         add(music);
@@ -144,8 +198,8 @@ public class ChessGameFrame extends JFrame {
      */
 
     private void addHelloButton() {
-        JButton button = new JButton();
-        button.addActionListener(e -> {
+        helloButton = new JButton();
+        helloButton.addActionListener(e -> {
             MusicTable.addSoundEffect("按钮");
             chessboard.Restart();
             blackplayer.setScore(0);
@@ -155,24 +209,24 @@ public class ChessGameFrame extends JFrame {
             chessboard.setCurrentColor(ChessColor.BLACK);
             statusLabel.setText("BLACK's TURN");
         });
-        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 80);
-        button.setSize(180, 60);
+        helloButton.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 80);
+        helloButton.setSize(180, 60);
 
         ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220004144.jpg");
-        button.setIcon(img);
-        add(button);
+        helloButton.setIcon(img);
+        add(helloButton);
     }
 
 
     private void addLoadButton() {
-        JButton button = new JButton();
-        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 300);
-        button.setSize(80, 60);
+        loadButton = new JButton();
+        loadButton.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 300);
+        loadButton.setSize(80, 60);
         ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220004155.jpg");
-        button.setIcon(img);
-        add(button);
+        loadButton.setIcon(img);
+        add(loadButton);
 
-        button.addActionListener(e -> {
+        loadButton.addActionListener(e -> {
             MusicTable.addSoundEffect("按钮");
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this, "Input Path here");
@@ -186,14 +240,14 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addSaveButton() {
-        JButton button = new JButton();
-        button.setLocation(WIDTH * 3 / 5 + 100, HEIGHT / 10 + 300);
-        button.setSize(80, 60);
+        saveButton = new JButton();
+        saveButton.setLocation(WIDTH * 3 / 5 + 100, HEIGHT / 10 + 300);
+        saveButton.setSize(80, 60);
 
         ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220004158.jpg");
-        button.setIcon(img);
-        add(button);
-        button.addActionListener(e -> {
+        saveButton.setIcon(img);
+        add(saveButton);
+        saveButton.addActionListener(e -> {
             MusicTable.addSoundEffect("按钮");
             System.out.println("Click save");
             String name = JOptionPane.showInputDialog(this, "Input Name here");
@@ -202,19 +256,19 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addCheatButton() {
-        JButton button = new JButton();
-        button.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 190);
-        button.setSize(180, 60);
+        cheatButton = new JButton();
+        cheatButton.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 190);
+        cheatButton.setSize(180, 60);
         ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220110507.jpg");
         ImageIcon img2 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\QQ图片20221220112043.jpg");
-        button.setIcon(img);
-        add(button);
+        cheatButton.setIcon(img);
+        add(cheatButton);
         ClickController right = chessboard.getSquareComponents()[0][0].getClickController();
-        button.addActionListener(e -> {
-            MusicTable.addSoundEffect("坏笑");
-            if (button.getIcon() == img) {
+        cheatButton.addActionListener(e -> {
+            if (cheatButton.getIcon() == img) {
+                MusicTable.addSoundEffect("坏笑");
                 System.out.println("Cheating Mode");
-                button.setIcon(img2);
+                cheatButton.setIcon(img2);
                 int i, j;
                 for (i = 0; i < chessboard.getSquareComponents().length; i++) {
                     for (j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
@@ -226,7 +280,7 @@ public class ChessGameFrame extends JFrame {
                 }
             } else {
                 System.out.println("Normal Mode");
-                button.setIcon(img);
+                cheatButton.setIcon(img);
                 int i, j;
                 for (i = 0; i < chessboard.getSquareComponents().length; i++) {
                     for (j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
@@ -353,10 +407,9 @@ public class ChessGameFrame extends JFrame {
         add(button4);
     }
 
-    private Chessboard echessboard=new Chessboard(800,640,1);
-    private Chessboard ochessboard=new Chessboard(800,640,0);
     private SquareComponent esquareComponent;
     private SquareComponent[][] esquareComponents = new SquareComponent[8][4];
+
     public void addEatenButton() {
         JButton button = new JButton();
         button.setBounds(WIDTH * 3 / 5 + 100, HEIGHT / 10 + 500, 50, 30);
@@ -364,73 +417,59 @@ public class ChessGameFrame extends JFrame {
         jFrame.setLocationRelativeTo(null);
         jFrame.setSize(400, 400);
 
-        int[][] count = new int[2][7];//第一行红
-        for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <= 3; j++) {
+        int[][] count = {{5, 2, 2, 2, 2, 1, 2}, {5, 2, 2, 2, 2, 1, 2}};//应该显示在被吃窗口的棋子数量。第一行红
+        for (int i = 0; i < chessboard.getSquareComponents().length; i++) {
+            for (int j = 0; j < chessboard.getSquareComponents()[i].length; j++) {
                 //soldier
-                if (this.chessboard.getSquareComponents()[i][j].getChessnumber() == 0) {
-                    if (this.chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][0] += 1;
-                    } else count[1][0] += 1;
+                if (chessboard.getSquareComponents()[i][j] instanceof SoldierChessComponent) {
+                    if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
+                        count[0][0] -= 1;
+                    } else count[1][0] -= 1;
                     //squareComponent = new SoldierChessComponent(new ChessboardPoint(i, j), calculatePoint(i, j), color, clickController, CHESS_SIZE);
                 }
                 //horse
                 if (chessboard.getSquareComponents()[i][j].getChessnumber() == 2) {
                     if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][1] += 1;
-                    } else count[1][1] += 1;
+                        count[0][1] -= 1;
+                    } else count[1][1] -= 1;
                 }
                 //Chariot
                 if (chessboard.getSquareComponents()[i][j].getChessnumber() == 4) {
                     if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][2] += 1;
-                    } else count[1][2] += 1;
+                        count[0][2] -= 1;
+                    } else count[1][2] -= 1;
                 }
                 //Elephant
                 if (chessboard.getSquareComponents()[i][j].getChessnumber() == 6) {
                     if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][3] += 1;
-                    } else count[1][3] += 1;
+                        count[0][3] -= 1;
+                    } else count[1][3] -= 1;
                 }
                 //Guard
                 if (chessboard.getSquareComponents()[i][j].getChessnumber() == 8) {
                     if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][4] += 1;
-                    } else count[1][4] += 1;
+                        count[0][4] -= 1;
+                    } else count[1][4] -= 1;
                 }
                 //General
                 if (chessboard.getSquareComponents()[i][j].getChessnumber() == 10) {
                     if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][5] += 1;
-                    } else count[1][5] += 1;
+                        count[0][5] -= 1;
+                    } else count[1][5] -= 1;
                 }
                 //Connon
                 if (chessboard.getSquareComponents()[i][j].getChessnumber() == 12) {
                     if (chessboard.getSquareComponents()[i][j].getChessColor() == ChessColor.RED) {
-                        count[0][6] += 1;
-                    } else count[1][6] += 1;
+                        count[0][6] -= 1;
+                    } else count[1][6] -= 1;
                 }
             }
         }
-        int a1 = 5 - count[0][0];//被吃的红兵
-        int a2 = 5 - count[1][0];
-        int b1 = 5 - count[0][1];
-        int b2 = 5 - count[1][1];
-        int c1 = 5 - count[0][2];
-        int c2 = 5 - count[1][2];
-        int d1 = 5 - count[0][3];
-        int d2 = 5 - count[1][3];
-        int e1 = 5 - count[0][4];
-        int e2 = 5 - count[1][4];
-        int f1 = 5 - count[0][5];
-        int f2 = 5 - count[1][5];
-        int g1 = 5 - count[0][6];
-        int g2 = 5 - count[1][6];
 
         ImageIcon imga1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红兵.gif");
         imga1.setImage(imga1.getImage().getScaledInstance(80, 80, 0));//设置图片的大小
         JLabel labela1 = new JLabel(imga1);
-        labela1.setBounds(0,0,80,80);
+        labela1.setBounds(0, 0, 80, 80);
 
         ImageIcon imgb1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红马.gif");
         ImageIcon imgc1 = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\GIF\\红车.gif");
@@ -475,8 +514,12 @@ public class ChessGameFrame extends JFrame {
         }*/
 
         button.addActionListener(e -> {
+            for (int i = 0; i < count.length; i++) {
+                for (int j = 0; j < count[i].length; j++) {
+                    System.out.print(count[i][j]);
+                }
+            }
             eChessboard eChessboard = new eChessboard();
-            System.out.printf("%d,%d",count[0][0],count[0][2]);
             eChessboard.setVisible(true);
         });
         add(button);
