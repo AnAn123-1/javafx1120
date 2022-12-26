@@ -1,6 +1,7 @@
 package view;
 
 
+import Music.MusicTable;
 import chessComponent.*;
 import model.*;
 import controller.ClickController;
@@ -79,6 +80,7 @@ public class Chessboard extends JComponent {
      * @param chess2
      */
     public void swapChessComponents(SquareComponent chess1, SquareComponent chess2) {
+        MusicTable.addSoundEffect("敲击");//移动音效
         // Note that chess1 has higher priority, 'destroys' chess2 if exists.
         if (!(chess2 instanceof EmptySlotComponent)) {
             if(chess2.getChessColor() == ChessColor.RED) {
@@ -92,6 +94,7 @@ public class Chessboard extends JComponent {
             remove(chess2);
             add(chess2 = new EmptySlotComponent(chess2.getChessboardPoint(), chess2.getLocation(), clickController, CHESS_SIZE));
         }
+
         chess1.swapLocation(chess2);
         int row1 = chess1.getChessboardPoint().getX(), col1 = chess1.getChessboardPoint().getY();
         squareComponents[row1][col1] = chess1;

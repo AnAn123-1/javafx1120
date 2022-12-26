@@ -154,13 +154,45 @@ public class MusicTable extends JFrame {
         button.setFont(new Font("音乐2", Font.BOLD, 20));
         add(button);
     }*/
-    public static void addSoundEffect(){
-        MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\按钮.wav");
-        Thread thread1 = new Thread(() -> {
-            while (true) {
-                musicPlayer1.setVolumn(6f).setLoop(false).play();
+    public static void addSoundEffect(String s) {
+        switch (s) {
+            case ("按钮") -> {
+                MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\按钮.wav");
+                Thread thread1 = new Thread(() -> {
+                    while (true) {
+                        musicPlayer1.setVolumn(6f).setLoop(false).play();
+                    }
+                });
+                thread1.start();
             }
-        });
-        thread1.start();
+            case ("坏笑") -> {
+                MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\坏笑.wav");
+                Thread thread1 = new Thread(() -> {
+                    while (true) {
+                        musicPlayer1.setVolumn(6f).setLoop(false).play();
+                    }
+                });
+                thread1.start();
+            }
+            case ("敲击") -> {
+                MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\敲击.wav");
+                Thread thread1 = new Thread(() -> {
+                    while (true) {
+                        musicPlayer1.setVolumn(6f).setLoop(false).play();
+                    }
+                });
+                thread1.start();
+            }
+            case ("") -> {
+                MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\坏笑.wav");
+                Thread thread1 = new Thread(() -> {
+                    while (true) {
+                        musicPlayer1.setVolumn(6f).setLoop(false).play();
+                    }
+                });
+                thread1.start();
+            }
+        }
+
     }
 }

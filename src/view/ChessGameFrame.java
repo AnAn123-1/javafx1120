@@ -146,7 +146,7 @@ public class ChessGameFrame extends JFrame {
     private void addHelloButton() {
         JButton button = new JButton();
         button.addActionListener(e -> {
-            MusicTable.addSoundEffect();
+            MusicTable.addSoundEffect("按钮");
             chessboard.Restart();
             blackplayer.setScore(0);
             redplayer.setScore(0);
@@ -173,7 +173,7 @@ public class ChessGameFrame extends JFrame {
         add(button);
 
         button.addActionListener(e -> {
-            MusicTable.addSoundEffect();
+            MusicTable.addSoundEffect("按钮");
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this, "Input Path here");
             if (path.endsWith(".txt")) {
@@ -194,7 +194,7 @@ public class ChessGameFrame extends JFrame {
         button.setIcon(img);
         add(button);
         button.addActionListener(e -> {
-            MusicTable.addSoundEffect();
+            MusicTable.addSoundEffect("按钮");
             System.out.println("Click save");
             String name = JOptionPane.showInputDialog(this, "Input Name here");
             new Save(name + ".txt", chessboard);
@@ -211,6 +211,7 @@ public class ChessGameFrame extends JFrame {
         add(button);
         ClickController right = chessboard.getSquareComponents()[0][0].getClickController();
         button.addActionListener(e -> {
+            MusicTable.addSoundEffect("坏笑");
             if (button.getIcon() == img) {
                 System.out.println("Cheating Mode");
                 button.setIcon(img2);
