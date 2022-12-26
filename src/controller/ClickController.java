@@ -1,17 +1,12 @@
 package controller;
 
 
-import Music.Data;
-import Music.MusicPlayer;
 import chessComponent.SquareComponent;
 import chessComponent.EmptySlotComponent;
 import model.ChessColor;
 import model.ChessboardPoint;
 import view.ChessGameFrame;
 import view.Chessboard;
-
-import javax.swing.*;
-import java.io.File;
 
 public class ClickController {
     private final Chessboard chessboard;
@@ -30,22 +25,22 @@ public class ClickController {
                 System.out.println("here");
                 first.repaint();
                 int i,j;
-                for(i = 0;i < chessboard.getChessComponents().length;i ++){
-                    for(j = 0;j < chessboard.getChessComponents()[i].length;j ++){
-                        if(first.canMoveTo(chessboard.getChessComponents(),new ChessboardPoint(i,j))) {
-                            if(first.getChessnumber() == 12 && !chessboard.getChessComponents()[i][j].isReversal()) {
-                                chessboard.getChessComponents()[i][j].setCanmove(true);
-                                chessboard.getChessComponents()[i][j].repaint();
+                for(i = 0; i < chessboard.getSquareComponents().length; i ++){
+                    for(j = 0; j < chessboard.getSquareComponents()[i].length; j ++){
+                        if(first.canMoveTo(chessboard.getSquareComponents(),new ChessboardPoint(i,j))) {
+                            if(first.getChessnumber() == 12 && !chessboard.getSquareComponents()[i][j].isReversal()) {
+                                chessboard.getSquareComponents()[i][j].setCanmove(true);
+                                chessboard.getSquareComponents()[i][j].repaint();
                             }else if (first.getChessnumber() == 12 &&
-                                    chessboard.getChessComponents()[i][j].isReversal() &&
-                                    chessboard.getChessComponents()[i][j].getChessColor() != first.getChessColor()){
-                                chessboard.getChessComponents()[i][j].setCanmove(true);
-                                chessboard.getChessComponents()[i][j].repaint();
+                                    chessboard.getSquareComponents()[i][j].isReversal() &&
+                                    chessboard.getSquareComponents()[i][j].getChessColor() != first.getChessColor()){
+                                chessboard.getSquareComponents()[i][j].setCanmove(true);
+                                chessboard.getSquareComponents()[i][j].repaint();
                             } else if (first.getChessnumber() != 12 &&
-                                    chessboard.getChessComponents()[i][j].isReversal() &&
-                                    chessboard.getChessComponents()[i][j].getChessColor() != first.getChessColor()){
-                                chessboard.getChessComponents()[i][j].setCanmove(true);
-                                chessboard.getChessComponents()[i][j].repaint();
+                                    chessboard.getSquareComponents()[i][j].isReversal() &&
+                                    chessboard.getSquareComponents()[i][j].getChessColor() != first.getChessColor()){
+                                chessboard.getSquareComponents()[i][j].setCanmove(true);
+                                chessboard.getSquareComponents()[i][j].repaint();
                             }
                         }
                     }
@@ -59,10 +54,10 @@ public class ClickController {
                 recordFirst.repaint();
 
                 int i,j;
-                for(i = 0;i < chessboard.getChessComponents().length;i ++){
-                    for(j = 0;j < chessboard.getChessComponents()[i].length;j ++){
-                            chessboard.getChessComponents()[i][j].setCanmove(false);
-                            chessboard.getChessComponents()[i][j].repaint();
+                for(i = 0; i < chessboard.getSquareComponents().length; i ++){
+                    for(j = 0; j < chessboard.getSquareComponents()[i].length; j ++){
+                            chessboard.getSquareComponents()[i][j].setCanmove(false);
+                            chessboard.getSquareComponents()[i][j].repaint();
                     }
                 }
             }
@@ -74,10 +69,10 @@ public class ClickController {
                 first.setSelected(false);
                 first = null;
                 int i,j;
-                for(i = 0;i < chessboard.getChessComponents().length;i ++){
-                    for(j = 0;j < chessboard.getChessComponents()[i].length;j ++){
-                        chessboard.getChessComponents()[i][j].setCanmove(false);
-                        chessboard.getChessComponents()[i][j].repaint();
+                for(i = 0; i < chessboard.getSquareComponents().length; i ++){
+                    for(j = 0; j < chessboard.getSquareComponents()[i].length; j ++){
+                        chessboard.getSquareComponents()[i][j].setCanmove(false);
+                        chessboard.getSquareComponents()[i][j].repaint();
                     }
                 }
             }
@@ -117,14 +112,14 @@ public class ClickController {
         }
 
             return squareComponent.getChessColor() != chessboard.getCurrentColor() &&
-                    first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+                    first.canMoveTo(chessboard.getSquareComponents(), squareComponent.getChessboardPoint());
         }
         else {
             if(!squareComponent.isReversal()) {
-                return first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+                return first.canMoveTo(chessboard.getSquareComponents(), squareComponent.getChessboardPoint());
             }
             else return squareComponent.getChessColor() != chessboard.getCurrentColor() &&
-                    first.canMoveTo(chessboard.getChessComponents(), squareComponent.getChessboardPoint());
+                    first.canMoveTo(chessboard.getSquareComponents(), squareComponent.getChessboardPoint());
         }
     }
 

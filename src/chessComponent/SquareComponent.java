@@ -1,5 +1,7 @@
 package chessComponent;
 
+import Music.MusicPlayer;
+import Music.MusicTable;
 import controller.ClickController;
 import model.ChessColor;
 import model.ChessboardPoint;

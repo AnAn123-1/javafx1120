@@ -5,8 +5,10 @@ import chessComponent.*;
 import model.*;
 import controller.ClickController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -21,7 +23,6 @@ public class Chessboard extends JComponent {
     private static final int COL_SIZE = 4;
 
     private final SquareComponent[][] squareComponents = new SquareComponent[ROW_SIZE][COL_SIZE];
-
     public SquareComponent[][] getSquareComponents() {
         return squareComponents;
     }
@@ -34,20 +35,15 @@ public class Chessboard extends JComponent {
     private final int CHESS_SIZE;
 
 
-    public Chessboard(int width, int height) {
+    public Chessboard(int width, int height, int c) {
         setLayout(null); // Use absolute layout.
         setSize(width + 2, height);
         CHESS_SIZE = (height - 6) / 8;
         SquareComponent.setSpacingLength(CHESS_SIZE / 12);
         System.out.printf("chessboard [%d * %d], chess size = %d\n", width, height, CHESS_SIZE);
-
-        initAllChessOnBoard();
+        if(c==0)
+            initAllChessOnBoard();
     }
-
-    public SquareComponent[][] getChessComponents() {
-        return squareComponents;
-    }
-
     public ChessColor getCurrentColor() {
         return currentColor;
     }
@@ -66,6 +62,15 @@ public class Chessboard extends JComponent {
             remove(squareComponents[row][col]);
         }
         add(squareComponents[row][col] = squareComponent);
+    }
+    public void paint(Graphics g,File file,int x,int y,int w,int h){
+        try {
+            Image image= ImageIO.read(file);//插入图片
+            g.drawImage(image, x,y,w,h, null);
+        } catch (Exception e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -143,7 +148,7 @@ public class Chessboard extends JComponent {
                 switch (x) {
                     case 0 -> {
                         if (color == ChessColor.RED) {
-                            a[1][x]--;
+                            a[1][x]--;//防止同类型棋子数量超标
                         } else {
                             a[2][x]--;
                         }
@@ -223,7 +228,7 @@ public class Chessboard extends JComponent {
      * @param col 棋盘上的列
      * @return
      */
-    private Point calculatePoint(int row, int col) {
+    public Point calculatePoint(int row, int col) {
         return new Point(col * CHESS_SIZE + 3, row * CHESS_SIZE + 3);
     }
 
@@ -374,4 +379,5 @@ public class Chessboard extends JComponent {
         }
         initAllChessOnBoard();
     }
+
 }
