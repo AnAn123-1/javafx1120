@@ -6,10 +6,6 @@ import chessComponent.*;
 import controller.CheatingClickController;
 import controller.ClickController;
 import controller.GameController;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import model.ChessColor;
 
 import javax.imageio.ImageIO;
@@ -17,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -51,7 +46,13 @@ public class ChessGameFrame extends JFrame {
 
     public ChessGameFrame(int width, int height) {
         setTitle("Dark Chess!"); //设置标题
-        //width=800;height=800;
+        try{
+            Image image = ImageIO.read(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\图标的星之卡比.png"));
+            setIconImage(image);
+            //setIconImage(new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\Music\\狂炫的星之卡比.gif").getImage());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
         this.WIDTH = width;
         this.HEIGHT = height;
         this.CHESSBOARD_SIZE = HEIGHT * 4 / 5;
