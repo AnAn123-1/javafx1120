@@ -157,8 +157,8 @@ public abstract class SquareComponent extends JComponent {
     //todo: Override this method for Cannon
     public boolean canMoveTo(SquareComponent[][] chessboard, ChessboardPoint destination) {
         SquareComponent destinationChess = chessboard[destination.getX()][destination.getY()];
-        if(this.getChessnumber() < 12){
-            if(this.getChessnumber() >= 2) {
+        if (this.getChessnumber() < 12) {
+            if (this.getChessnumber() >= 2) {
                 if ((destination.getY() == this.chessboardPoint.getY() && (destination.getX() - this.chessboardPoint.getX() == 1 || this.chessboardPoint.getX() - destination.getX() == 1)) ||
                         (destination.getX() == this.chessboardPoint.getX() && (destination.getY() - this.chessboardPoint.getY() == 1 || this.chessboardPoint.getY() - destination.getY() == 1))) {
                     if (destinationChess.isReversal()) {
@@ -167,13 +167,12 @@ public abstract class SquareComponent extends JComponent {
                         else return destinationChess.getChessnumber() >= 12;
                     } else return destinationChess instanceof EmptySlotComponent;
                 } else return false;
-            }
-            else if((destination.getY() == this.chessboardPoint.getY() && (destination.getX() - this.chessboardPoint.getX() == 1 || this.chessboardPoint.getX() - destination.getX() == 1)) ||
-                    (destination.getX() == this.chessboardPoint.getX() && (destination.getY() - this.chessboardPoint.getY() == 1 || this.chessboardPoint.getY() - destination.getY() == 1)))return destinationChess.getChessnumber() == 10||destinationChess.getChessnumber() == 0 ;
+            } else if ((destination.getY() == this.chessboardPoint.getY() && (destination.getX() - this.chessboardPoint.getX() == 1 || this.chessboardPoint.getX() - destination.getX() == 1)) ||
+                    (destination.getX() == this.chessboardPoint.getX() && (destination.getY() - this.chessboardPoint.getY() == 1 || this.chessboardPoint.getY() - destination.getY() == 1)))
+                return destinationChess.getChessnumber() == 10 || destinationChess.getChessnumber() == 0;
             else return false;
-        }
-        else{
-            if(!(destinationChess instanceof EmptySlotComponent)) {
+        } else {
+            if (!(destinationChess instanceof EmptySlotComponent)) {
                 int i;
                 int k = 0;
                 if (destination.getX() == this.chessboardPoint.getX() && destination.getY() != this.chessboardPoint.getY()) {
@@ -203,8 +202,7 @@ public abstract class SquareComponent extends JComponent {
                     }
                     return k == 2;
                 } else return false;
-            }
-            else return false;
+            } else return false;
         }
         //todo: complete this method
     }

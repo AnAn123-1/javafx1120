@@ -184,7 +184,7 @@ public class MusicTable extends JFrame {
                 thread1.start();
             }
             case ("") -> {
-                MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\坏笑.wav");
+                MusicPlayer musicPlayer1 = new MusicPlayer("D:\\IdeaProjects\\javafx1120\\src\\Music\\.wav");
                 Thread thread1 = new Thread(() -> {
                     while (true) {
                         musicPlayer1.setVolumn(6f).setLoop(false).play();

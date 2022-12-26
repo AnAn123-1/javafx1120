@@ -40,21 +40,21 @@ public class JavaFx04Stage extends Application {
         //设置了一个退出按钮
         BorderPane borderPane = new BorderPane();
         Button close = new Button("退出");
-        close.setOnAction(e-> Platform.exit());
+        close.setOnAction(e -> Platform.exit());
         borderPane.setCenter(close);
 
         //borderPane.setCenter(new Button("操作股票"));//在中间添加按钮
-        Scene scene = new  Scene(borderPane,300,200);//创建场景
+        Scene scene = new Scene(borderPane, 300, 200);//创建场景
         stage.setScene(scene);//场景设置添加到舞台中
         //stage.initStyle(StageStyle.UNDECORATED);//使框框消失
 
         //stage.setFullScreen(true);//全屏模式
 
         //舞台事件
-        stage.setOnCloseRequest(e-> System.out.println("系统被关闭了。。。"));//点叉关闭窗口后打印上述内容
+        stage.setOnCloseRequest(e -> System.out.println("系统被关闭了。。。"));//点叉关闭窗口后打印上述内容
 
         //舞台键盘事件：退出
-        stage.addEventFilter(KeyEvent.KEY_TYPED, e-> System.out.println(e.getCharacter()));
+        stage.addEventFilter(KeyEvent.KEY_TYPED, e -> System.out.println(e.getCharacter()));
 
         stage.show();
     }

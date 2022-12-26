@@ -15,7 +15,7 @@ public class JavaFx03Stage extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //让舞台赋值给静态属性
-        JavaFx03Stage.stage=stage;
+        JavaFx03Stage.stage = stage;
         stage.setTitle("登录注册");//界面标题
         // 1.需要布局
         HBox hBox = new HBox();
@@ -23,10 +23,10 @@ public class JavaFx03Stage extends Application {
         Button login = new Button("登录！");
         Button regist = new Button("注册！");
         //跳转注册界面
-        regist.setOnAction(e->JavaFx03Stage.regist());
-        hBox.getChildren().addAll(login,regist);
+        regist.setOnAction(e -> JavaFx03Stage.regist());
+        hBox.getChildren().addAll(login, regist);
         //2.创建场景
-        Scene scene = new Scene(hBox,300,200);
+        Scene scene = new Scene(hBox, 300, 200);
         //3.将场景放到舞台中
         stage.setScene(scene);
         //4.展示舞台
@@ -35,11 +35,11 @@ public class JavaFx03Stage extends Application {
         stage.show();
     }
 
-    public static void regist(){
+    public static void regist() {
         VBox vBOX = new VBox();//垂直布局
         Label label = new Label("注册界面");
         vBOX.getChildren().add(label);
-        Scene scene = new Scene(vBOX,300,200);
+        Scene scene = new Scene(vBOX, 300, 200);
         //设置新场景
         JavaFx03Stage.stage.setScene(scene);
     }

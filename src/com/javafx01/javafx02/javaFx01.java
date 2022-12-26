@@ -12,7 +12,7 @@ public class javaFx01 extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Group group = new Group();
-        Scene scene = new Scene(group,300,250, Color.WHITE);//创建场景
+        Scene scene = new Scene(group, 300, 250, Color.WHITE);//创建场景
         /*stage.setTitle("矩形示例");
         Rectangle rectangle = new Rectangle(20,20,200,200);//创建矩形
         rectangle.setX(50);
@@ -26,7 +26,7 @@ public class javaFx01 extends Application {
         stage.setTitle("椭圆示例");
         DropShadow dropShadow = new DropShadow();//给图形添加阴影 好看
         dropShadow.setOffsetX(3.0);
-        dropShadow.setColor(Color.color(0.4,0.4,0.4));
+        dropShadow.setColor(Color.color(0.4, 0.4, 0.4));
 
         Ellipse ellipse = new Ellipse();
         ellipse.setCenterX(50.0f);

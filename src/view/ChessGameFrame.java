@@ -10,9 +10,13 @@ import model.ChessColor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -46,18 +50,17 @@ public class ChessGameFrame extends JFrame {
 
     public ChessGameFrame(int width, int height) {
         setTitle("Dark Chess!"); //设置标题
-        try{
+        try {
             Image image = ImageIO.read(new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\图标的星之卡比.png"));
             setIconImage(image);
             //setIconImage(new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\Music\\狂炫的星之卡比.gif").getImage());
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         this.WIDTH = width;
         this.HEIGHT = height;
         this.CHESSBOARD_SIZE = HEIGHT * 4 / 5;
-        //setFocusableWindowState(false);
-        setForeground(Color.PINK);
+        //setFocusableWindowState(false);//虽然可以得到美丽白框，但会在屏幕程序里置于底层。。
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null); // Center the window.
         getContentPane().setBackground(Color.WHITE);
@@ -81,25 +84,26 @@ public class ChessGameFrame extends JFrame {
         addMusicButton();
         addEatenButton();
 
-        setSize(width,height);
+        setSize(width, height);
         final ImageIcon i = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910a.jpeg");
-        final JPanel jp1=new JPanel();
+        final JPanel jp1 = new JPanel();
         jp1.setLayout(null);
         final JLabel jl = new JLabel(i);
         jp1.add(jl, new Integer(Integer.MIN_VALUE));
 
-        ComponentListener listener=new ComponentListener() {
+        ComponentListener listener = new ComponentListener() {
             @Override
             public void componentShown(ComponentEvent e) {
                 // TODO 自动生成的方法存根
             }
+
             @Override
             public void componentResized(ComponentEvent e) {
-                int x=jp1.getWidth();    //这里就比较关键
-                int y=jp1.getHeight();
-                i.setImage(i.getImage().getScaledInstance(Math.max(x,y),Math.max(x,y),Image.SCALE_DEFAULT));
+                int x = jp1.getWidth();    //这里就比较关键
+                int y = jp1.getHeight();
+                i.setImage(i.getImage().getScaledInstance(Math.max(x, y), Math.max(x, y), Image.SCALE_DEFAULT));
                 jl.setBounds(0, 0, x, y);
-                chessboard.setLocation(x/2-chessboard.getWidth(),y/10);
+                chessboard.setLocation(x / 2 - chessboard.getWidth(), y / 10);
                 statusLabel.setLocation(x * 3 / 5 - 10, y / 10);
                 redLabel.setLocation(x * 3 / 5, y / 10 + 425);
                 blackLabel.setLocation(x * 3 / 5, y / 10 + 375);
@@ -116,10 +120,12 @@ public class ChessGameFrame extends JFrame {
 
                 // TODO 自动生成的方法存根
             }
+
             @Override
             public void componentMoved(ComponentEvent e) {
                 // TODO 自动生成的方法存根
             }
+
             @Override
             public void componentHidden(ComponentEvent e) {
                 // TODO 自动生成的方法存根
@@ -130,14 +136,24 @@ public class ChessGameFrame extends JFrame {
         Container contain = this.getContentPane();
         ((JPanel) contain).setOpaque(false);
 
-
         add(jp1);
         addComponentListener(listener);
-        setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键
+
+
+        setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+        MetalLookAndFeel.setCurrentTheme(new MyDefaultMetalTheme());
+        try {
+            UIManager.setLookAndFeel(new MetalLookAndFeel());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.updateComponentTreeUI(getContentPane());
+        setVisible(true);
     }
 
-    /*修改图片至特定尺寸：运行一下这个main方法*//*
+    /*修改图片至特定尺寸：运行一下这个main方法*/
     public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_AREA_AVERAGING);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
@@ -145,20 +161,21 @@ public class ChessGameFrame extends JFrame {
         return outputImage;
     }
 
+    /*
     public static void main(String[] args) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         try {
             //读取原始图片
-            BufferedImage image = ImageIO.read(new FileInputStream("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910a.jpeg"));
+            BufferedImage image = ImageIO.read(new FileInputStream("D:\\IdeaProjects\\javafx1120\\src\\Music\\爆米花星之卡比.jpg"));
             //调整图片大小
-            BufferedImage newImage = resizeImage(image, screenSize.width, screenSize.width);
+            BufferedImage newImage = resizeImage(image, 400, 800);
             //图像缓冲区图片保存为图片文件(文件不存在会自动创建文件保存，文件存在会覆盖原文件保存)
-            ImageIO.write(newImage, "jpeg", new File("D:\\IdeaProjects\\javafx1120\\src\\darkchess\\2c8e731703a167473583f4c04024910b.jpeg"));
+            ImageIO.write(newImage, "jpeg", new File("D:\\IdeaProjects\\javafx1120\\src\\Music\\爆米花星之卡比.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
-
+    }
+*/
 
     /**
      * 在游戏窗体中添加棋盘
@@ -340,9 +357,9 @@ public class ChessGameFrame extends JFrame {
             }
         });
         musicButton = new JButton[4];
-        musicButton[0]=new JButton();
-        musicButton[1]=new JButton();
-        musicButton[2]=new JButton();
+        musicButton[0] = new JButton();
+        musicButton[1] = new JButton();
+        musicButton[2] = new JButton();
         musicButton[3] = new JButton("⏸");
 
         musicButton[0].addActionListener((e -> {
@@ -519,8 +536,9 @@ public class ChessGameFrame extends JFrame {
             eChessboard.setVisible(true);
         });
         ImageIcon img = new ImageIcon("D:\\IdeaProjects\\javafx1120\\src\\Music\\狂炫的星之卡比.gif");
-        img.setImage(img.getImage().getScaledInstance(100, 100*338/500, 0));//设置图片的大小
+        img.setImage(img.getImage().getScaledInstance(100, 100 * 338 / 500, 0));//设置图片的大小
         eatenButton.setIcon(img);
         add(eatenButton);
     }
+
 }

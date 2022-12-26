@@ -7,7 +7,7 @@ import model.ChessboardPoint;
 import javax.swing.*;
 import java.awt.*;
 
-public class HorseChessComponent extends ChessComponent{
+public class HorseChessComponent extends ChessComponent {
     public HorseChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {
         super(chessboardPoint, location, chessColor, clickController, size);
         score = 5;

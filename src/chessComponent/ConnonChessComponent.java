@@ -7,7 +7,7 @@ import model.ChessboardPoint;
 import javax.swing.*;
 import java.awt.*;
 
-public class ConnonChessComponent extends ChessComponent{
+public class ConnonChessComponent extends ChessComponent {
     public ConnonChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {
         super(chessboardPoint, location, chessColor, clickController, size);
         score = 5;
