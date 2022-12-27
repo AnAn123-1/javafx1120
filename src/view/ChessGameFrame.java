@@ -110,7 +110,7 @@ public class ChessGameFrame extends JFrame {
                 music.setLocation(x * 3 / 5, (y + 6200) / 10);
                 helloButton.setLocation(x * 3 / 5, (y + 800) / 10);
                 loadButton.setLocation(x * 3 / 5, (y + 3000) / 10);
-                saveButton.setLocation(x * 3 / 5 + 100, (y + 3000) / 10);
+                saveButton.setLocation((x * 3 + 500)/ 5 , (y + 3000) / 10);
                 cheatButton.setLocation(x * 3 / 5, (y + 1900) / 10);
                 musicButton[0].setLocation(x * 3 / 5, (y + 5000) / 10);
                 musicButton[1].setLocation(x * 3 / 5, (y + 5300) / 10);
@@ -191,7 +191,7 @@ public class ChessGameFrame extends JFrame {
         statusLabel = new JLabel("BLACK's TURN");
         statusLabel.setLocation(WIDTH * 3 / 5 - 10, HEIGHT / 10);
         statusLabel.setSize(230, 60);
-        statusLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 30));
+        statusLabel.setFont(new Font("STHupo", Font.BOLD, 30));
         add(statusLabel);
 
         blackplayer = new Player();
@@ -201,16 +201,16 @@ public class ChessGameFrame extends JFrame {
         blackLabel = new JLabel(String.format("BLACK`S SCORE : %d", blackplayer.getScore()));
         blackLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 375);
         blackLabel.setSize(250, 60);
-        blackLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 20));
+        blackLabel.setFont(new Font("STHupo", Font.BOLD, 20));
         redLabel = new JLabel(String.format("RED`S SCORE : %d", redplayer.getScore()));
         redLabel.setLocation(WIDTH * 3 / 5, HEIGHT / 10 + 425);
         redLabel.setSize(250, 60);
-        redLabel.setFont(new Font("Showcard Gothic", Font.BOLD, 20));
+        redLabel.setFont(new Font("STHupo", Font.BOLD, 20));
         add(blackLabel);
         add(redLabel);
         music = new JLabel("Music");
         music.setBounds(WIDTH * 3 / 5, HEIGHT / 10 + 620, 50, 30);
-        music.setFont(new Font("Showcard Gothic", Font.BOLD, 12));
+        music.setFont(new Font("BIZ UDGothic", Font.BOLD, 12));
         add(music);
     }
 
