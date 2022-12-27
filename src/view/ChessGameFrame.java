@@ -103,20 +103,20 @@ public class ChessGameFrame extends JFrame {
                 int y = jp1.getHeight();
                 i.setImage(i.getImage().getScaledInstance(Math.max(x, y), Math.max(x, y), Image.SCALE_DEFAULT));
                 jl.setBounds(0, 0, x, y);
-                chessboard.setLocation(x / 2 - chessboard.getWidth(), y / 10);
-                statusLabel.setLocation(x * 3 / 5 - 10, y / 10);
-                redLabel.setLocation(x * 3 / 5, y / 10 + 425);
-                blackLabel.setLocation(x * 3 / 5, y / 10 + 375);
-                music.setLocation(x * 3 / 5, y / 10 + 620);
-                helloButton.setLocation(x * 3 / 5, y / 10 + 80);
-                loadButton.setLocation(x * 3 / 5, y / 10 + 300);
-                saveButton.setLocation(x * 3 / 5 + 100, y / 10 + 300);
-                cheatButton.setLocation(x * 3 / 5, y / 10 + 190);
-                musicButton[0].setLocation(x * 3 / 5, y / 10 + 500);
-                musicButton[1].setLocation(x * 3 / 5, y / 10 + 530);
-                musicButton[2].setLocation(x * 3 / 5, y / 10 + 560);
-                musicButton[3].setLocation(x * 3 / 5, y / 10 + 590);
-                eatenButton.setLocation(x * 3 / 5 + 80, y / 10 + 500);
+                chessboard.setLocation(x / 2 - chessboard.getWidth(), y / 2 - chessboard.getHeight() / 2);
+                statusLabel.setLocation((x * 3 - 50) / 5, ((y - 640) / 2));
+                redLabel.setLocation(x * 3 / 5, (y + 4250) / 10);
+                blackLabel.setLocation(x * 3 / 5, (y + 3750) / 10);
+                music.setLocation(x * 3 / 5, (y + 6200) / 10);
+                helloButton.setLocation(x * 3 / 5, (y + 800) / 10);
+                loadButton.setLocation(x * 3 / 5, (y + 3000) / 10);
+                saveButton.setLocation(x * 3 / 5 + 100, (y + 3000) / 10);
+                cheatButton.setLocation(x * 3 / 5, (y + 1900) / 10);
+                musicButton[0].setLocation(x * 3 / 5, (y + 5000) / 10);
+                musicButton[1].setLocation(x * 3 / 5, (y + 5300) / 10);
+                musicButton[2].setLocation(x * 3 / 5, (y + 5600) / 10);
+                musicButton[3].setLocation(x * 3 / 5, (y + 5900) / 10);
+                eatenButton.setLocation((x * 3 + 400) / 5, (y + 5000) / 10);
 
                 // TODO 自动生成的方法存根
             }
@@ -132,15 +132,12 @@ public class ChessGameFrame extends JFrame {
             }
         };
 
-
         Container contain = this.getContentPane();
         ((JPanel) contain).setOpaque(false);
 
         add(jp1);
         addComponentListener(listener);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键
-
-
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         MetalLookAndFeel.setCurrentTheme(new MyDefaultMetalTheme());
